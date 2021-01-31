@@ -3,4 +3,9 @@
 *.aux
 *.log
 *.pdf
-
+*.nav
+*.cut
+*.toc
+*.snm
+*.out
+*.swp
