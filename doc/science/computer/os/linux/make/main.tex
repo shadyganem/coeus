@@ -1,10 +1,35 @@
-\documentclass{book}
+\documentclass[a4paper, 12pt]{book}
+
+% set font encoding for PDFLaTeX, XeLaTeX, or LuaTeX
+\usepackage{ifxetex,ifluatex}
+\if\ifxetex T\else\ifluatex T\else F\fi\fi T%
+  \usepackage{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\fi
+
+\usepackage{hyperref}
+
 \title{How to Make}
+\author{Shady Ganem}
+
+% Enable SageTeX to run SageMath code right inside this LaTeX file.
+% http://doc.sagemath.org/html/en/tutorial/sagetex.html
+% \usepackage{sagetex}
+
+% Enable PythonTeX to run Python – https://ctan.org/pkg/pythontex
+% \usepackage{pythontex}
+
 \begin{document}
 \maketitle
-\tableofcontent
-how to make is a book about usding the utilitie make to build software projects
-effictivly \newline
- 
+
+how to make is a book write by shady ganem about making stuff
+
+
+
 \end{document}
+
+
 

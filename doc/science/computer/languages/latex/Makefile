@@ -1,12 +1,12 @@
 OUTDIR = $(shell pwd)
 TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
-PDFOUT = how_to_make 
+PDFOUT = how_to_latex 
 PDF_TARGET = $(addsuffix .pdf, $(PDFOUT)) 
 LATEXIN = main.tex
 
 all: pdf
 
-pdf: $(addsuffix .pdf, $(PDFOUT))
+pdf: $(PDF_TARGET)
 
 $(PDF_TARGET): $(LATEXIN)
 	$(TEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)
