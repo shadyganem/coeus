@@ -1,38 +1,72 @@
-\documentclass[a4paper, 12pt]{book}
-\title{How To \LaTeX}
-\author{Shady Ganem}
+\documentclass[12pt]{book}
+
+% --------- packages         ---------- %
+%listings is for embeding code
 \usepackage{listings}
 \usepackage[utf8]{inputenc}
+%hyperref is for inserting hyperlinks 
+\usepackage[colorlinks]{hyperref}
+%using bookmark to for table of content
+\usepackage{bookmark}
 
+% ---------- front page info ---------- %
+\title{How To \LaTeX}
+\author{Shady Ganem}
+
+% ---------- end of preamble ---------- %
 \begin{document}
 \maketitle
+\tableofcontents
+\section*{Introduction}
+
+% ---------- part 1 -------------- %
+\part{Basics of \LaTeX}
+\chapter{The Basics}
+\section{Syntax}
+\section{Compiling \LaTeX \ code}
+\chapter{Packages}
+\section{what is a package}
 A latex file has two main parts.
 \newline the fist part is called the preable and the second part is called the document part.
 \newline the first line of latex document is the documentclass. this command hold info on which type of
 document we want to make.
+\section{Fonts}
+\chapter{Documents}
+\section{Books}
+\section{Articles}
+\section{Beamers}
 
+
+% ----- part 2 --------- %
+\part{How To \LaTeX}
+\section{Introduction}
+\chapter{Computer Science Documentation}
+\section{Documentaion Automation}
 \begin{verbatim}
 \documentclass{book}
 \end{verbatim}
 
 \newpage
 How to insert a code block into a latex document?
-\newline One way to emed code in the \LaTeX file is by using a verbatim 
+\newline One way to emed code in the \LaTeX  file is by using a verbatim 
 block. Verabatim blocks will embed the text as it 
-appeard in the block 
-For exmaple:
+appeard in the block
+\newline For exmaple:
 \begin{verbatim}
 \begin{verbatim}
 Text in the verbatim block not processed as latex code.
 \begin{verbatim}
 \end{verbatim}
-Another way could be to open a lstlisiting block
-For example:
+Another way is to use lstlisiting block
+The lstlisting is part of the listings package.
+For more documentation about the listings package goto this \href{https://ctan.math.illinois.edu/macros/latex/contrib/listings/listings.pdf}{link}
+\newline For example:
 \begin{verbatim}
 \begin{lstlisting}[language=python]
 if __name__=="__main__":
     print("hello, world!")
 \end{lstlisting}
 \end{verbatim}
+\subsection{Using GNU make}
 \end{document}
 
