@@ -1,6 +1,6 @@
 OUTDIR = $(shell pwd)
 TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
-PDFOUT = mastering_linux
+PDFOUT = how_to_make 
 PDF_TARGET = $(addsuffix .pdf, $(PDFOUT)) 
 LATEXIN = main.tex
 

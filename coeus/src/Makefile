@@ -1,22 +1,25 @@
 
 CC = gcc
-FLAGS = -Wall
+FLAGS = -Wall 
 TARGET = coeus
 
 SRC = coeus.c defines.h
-DEPEND = coeus.o
+OBJ = coeus.o
 
-all : $(TARGET)
+all: $(TARGET)
 
-$(TARGET): $(DEPEND)
-	$(CC) $(FLAGS) -o ../$@ $^ 
+$(TARGET): $(OBJ)
+	$(CC) $(FLAGS) -o $@ $^ 
 
-$(DEPEND): $(SRC)
+$(OBJ): $(SRC)
 	$(CC) $(FLAGS) -c $^
 
-install:
-	cp ../$(TARGET) /home/$(USER)/bin
+install: $(TARGET)
+	cp $(TARGET) /home/$(USER)/bin
+
+uninstall:
+	rm -f /home/$(USER)/bin/$(TARGET)
 
 clean:
-	rm ../$(TARGET)
-	rm -f *.o
+	rm $(TARGET)
+	rm -f *.o *.h.gch
