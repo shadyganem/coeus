@@ -27,7 +27,9 @@
 \newpage
 % ---------- part 1 -------------- %
 \part{Basics of \LaTeX}
-\chapter{The Basics}
+
+% ----- chapter A Totorial Introduction 
+\chapter{A Tutorial Introduction}
 \section{Introdcution to \LaTeX \ }
 \subsection{What is \LaTeX \ }
 First let's begin with the pronunciation. \LaTeX \ is pronounced Lay-tek or Lah-tek and not Lay-teks. 
@@ -49,6 +51,10 @@ Regardless of which environment you choose for using \LaTeX \ you will work with
 One window is used for typing commands and content, and another window for viewing the porcessed output document.
 \LaTeX \ can generates different types of output but the most used one is PDF (Portable Document Format) files. 
 This is mainly becuse PDF is readable on every platform. Mobile and otherwise.\\
+\subsection{A Commands In \LaTeX \ }
+\LaTeX \ typesetting is made by using command that provide a an abondance of ways to format the document. 
+Command are words that encapsulate certain behavior. Usually these words are perceded by a backslash '\' character. A command may take a parameter. 
+New commands can be defines for special needs if standard commands do not sufice.
 
 \subsection{Document Structure}
 A \LaTeX \ source code file has two basic parts. The first part is called the Preamble and the second part is 
@@ -68,8 +74,8 @@ After the documentclass command we can declare the packages we want you to use b
 Packages are files that contain more commands that can add to \LaTeX \ fucntionilaty. In this book We will cover the 
 most important packages. 
 \textbf{Document Environment}\\
-cument is the document environment. An environment in \LaTeX \ is a block which will be processed aaccording to specific rules. 
-\newline The document environment is the outermost container that will hold the
+cument is the document environment. An environment in \LaTeX \ is a block which will be processed aaccording to specific rules.\\ 
+The document environment is the outermost container that will hold the
 document. The environment block is denoted by two delimiters.
 \begin{lstlisting}[language={[LaTeX]TeX}]
 \begin{document}
@@ -89,7 +95,6 @@ The most basic document in \LaTeX \ will look like this.
 \section{Compiling \LaTeX \ code}
 \subsection{Compiling on a Linux machine}
 To compile on a Linux machine you need to install the necessary packages.
-
 On a Debian based distrobution.
 \begin{lstlisting}[language=bash]
 sudo apt-get install texlive-full 
@@ -117,6 +122,8 @@ this could be confusing for newcomers to \LaTeX \ but now you know.
 \newline
 \subsection{\LaTeX \ files}
 \newpage
+
+% ----- chapter Packages
 \chapter{Packages}
 \section{what is a package}
 \subsection{How to use a package}
@@ -129,6 +136,9 @@ for sites out of the document. Such as links to websites or other apps.
 \subsubsection{geometry}
 \subsubsection{tikz}
 \newpage
+
+
+% ---- chpater Documents 
 \chapter{Documents}
 \section{Document style}
 \subsection{Margins}
@@ -150,6 +160,8 @@ The margin now is better :)
 % ----- part 2 --------- %
 \part{How To \LaTeX}
 \section{Introduction}
+
+% ---- chapter Computer Science Documentation
 \chapter{Computer Science Documentation}
 \section{Documentaion Automation}
 \begin{verbatim}
