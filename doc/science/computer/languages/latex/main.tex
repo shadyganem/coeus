@@ -10,6 +10,8 @@
 % geometry packsge for managing page margins
 \usepackage[margin=1.25in]{geometry}
 
+%tikz this package is used for creating drawings
+\usepackage{tikz}
 %using bookmark to for table of content
 %\usepackage{bookmark}
 
@@ -26,8 +28,26 @@
 % ---------- part 1 -------------- %
 \part{Basics of \LaTeX}
 \chapter{The Basics}
-\newpage
-\section{An introdcution to \LaTeX \ }
+\section{Introdcution to \LaTeX \ }
+\subsection{What is \LaTeX \ }
+First let's begin with the pronunciation. \LaTeX \ is pronounced Lay-tek or Lah-tek and not Lay-teks. 
+That is something that I got wrong when I first crossed paths with \LaTeX \ and I am making sure you won't.\\
+Now that we know how to pronounce the name corrently let's dive into what is \LaTeX. Well, \LaTeX \ is a software tool 
+for creating documents. The user writes code in plain text. The code is later processed to genereate a 
+a document with all the visual aspects taken care of. \LaTeX, unlike other word processing tools let's the user focus on the content and leave 
+the visual asspects of the document to the software engine. \\
+There are two ways to use \LaTeX, one is to downlaod packages onto your computer, 
+and the second is to use a cloud based editor.\\
+I use the \href{https://tug.org/texlive/}{TEX Live} Distrobution on Linux. Mac Users can use
+\href{https://www.tug.org/mactex/}{MacTEX}. It is important to note that this method could 
+require additional tweeking to get it to work properly.\\
+Another good way to create documents with \LaTeX \ is by using a cloud based editor. 
+\href{https://www.overleaf.com}{Overleaf} is a robust enough editor for students and small projects.
+Ther are many great resources to learn \LaTeX \ online. \\
+Regardless of which environment you choose for using \LaTeX \ you will work with two windows. 
+One window is used for typing commands and content, and another window for viewing the porcessed output document.\\
+\LaTeX \ generates many types of out files but the most used one is PDF (Portable Document Format)
+
 \subsection{Syntax}
 \subsection{Document Structure}
 A \LaTeX \ source code file has two main parts. The preamble and the document.
@@ -97,6 +117,9 @@ this could be confusing for newcomers to \LaTeX \ but now you know.
 The hyperref pakcage is used for creating links in the document as well as links 
 for sites out of the document. Such as links to websites or other apps.
 \subsubsection{inputenc}
+\subsubsection{listings}
+\subsubsection{geometry}
+\subsubsection{tikz}
 \newpage
 \chapter{Documents}
 \section{Document style}
