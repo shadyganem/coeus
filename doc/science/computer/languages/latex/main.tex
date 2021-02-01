@@ -31,36 +31,44 @@
 \section{Introdcution to \LaTeX \ }
 \subsection{What is \LaTeX \ }
 First let's begin with the pronunciation. \LaTeX \ is pronounced Lay-tek or Lah-tek and not Lay-teks. 
-That is something that I got wrong when I first crossed paths with \LaTeX \ and I am making sure you won't.\\
+That is something that I got wrong when I first crossed paths with \LaTeX \ and I am making sure you won't.
+\newline 
 Now that we know how to pronounce the name corrently let's dive into what is \LaTeX. Well, \LaTeX \ is a software tool 
 for creating documents. The user writes code in plain text. The code is later processed to genereate a 
-a document with all the visual aspects taken care of. \LaTeX, unlike other word processing tools let's the user focus on the content and leave 
-the visual asspects of the document to the software engine. \\
-There are two ways to use \LaTeX, one is to downlaod packages onto your computer, 
-and the second is to use a cloud based editor.\\
+a document with all the visual aspects taken care of. \LaTeX, unlike other word processing tools let's the user focus on the content and leave the visual asspects of the document to the software engine. 
+\newline 
+There are two ways to use \LaTeX, one is to downlaod packages onto your computer, and the second is to use a cloud based editor.
 I use the \href{https://tug.org/texlive/}{TEX Live} Distrobution on Linux. Mac Users can use
-\href{https://www.tug.org/mactex/}{MacTEX}. It is important to note that this method could 
-require additional tweeking to get it to work properly.\\
+\href{https://www.tug.org/mactex/}{MacTEX}. It is important to note that this method could require additional tweeking to get it to work properly.
+\newline
 Another good way to create documents with \LaTeX \ is by using a cloud based editor. 
 \href{https://www.overleaf.com}{Overleaf} is a robust enough editor for students and small projects.
-Ther are many great resources to learn \LaTeX \ online. \\
+Ther are many great resources to learn \LaTeX \ online. 
+\newline 
 Regardless of which environment you choose for using \LaTeX \ you will work with two windows. 
-One window is used for typing commands and content, and another window for viewing the porcessed output document.\\
-\LaTeX \ generates many types of out files but the most used one is PDF (Portable Document Format)
+One window is used for typing commands and content, and another window for viewing the porcessed output document.
+\LaTeX \ can generates different types of output but the most used one is PDF (Portable Document Format) files. 
+This is mainly becuse PDF is readable on every platform. Mobile and otherwise.\\
 
-\subsection{Syntax}
 \subsection{Document Structure}
-A \LaTeX \ source code file has two main parts. The preamble and the document.
-The preamble does not contain any content, rather it holds information about the document. 
-The first line of \LaTeX \ document is the documentclass command. 
-\begin{lstlisting}[language={[LaTeX]TeX}]
-\documentclass[12pt]{book}
+A \LaTeX \ source code file has two basic parts. The first part is called the Preamble and the second part is 
+called the Document Environment.\\
+\textbf{Preamble}\\
+The preamble contains commnands that establish the basic parameters of the document.
+The first line of a \LaTeX \ document is the documentclass command. 
+\begin{lstlisting}[language={[latex]tex}]
+\documentclass{article}
 \end{lstlisting}
-This command tells the compiler the most general inforamtion, which is the type of
-document to create, as well as what are it's most general properties.
-The preamble can also include declaration of the packages that will be used to create the document.
-\newline
-The second part of the document is the document environment. An environment in \LaTeX \ is a block which will be processed aaccording to specific rules. 
+This command tells the \LaTeX \ compiler what type of document you are making, and that will make it load ceratain features.
+After the documentclass command we can declare the packages we want you to use by calling the command usepackage.
+\begin{lstlisting}[language={[latex]tex}]
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\end{lstlisting}
+Packages are files that contain more commands that can add to \LaTeX \ fucntionilaty. In this book We will cover the 
+most important packages. 
+\textbf{Document Environment}\\
+cument is the document environment. An environment in \LaTeX \ is a block which will be processed aaccording to specific rules. 
 \newline The document environment is the outermost container that will hold the
 document. The environment block is denoted by two delimiters.
 \begin{lstlisting}[language={[LaTeX]TeX}]
@@ -124,6 +132,15 @@ for sites out of the document. Such as links to websites or other apps.
 \chapter{Documents}
 \section{Document style}
 \subsection{Margins}
+\LaTeX \ uses a 1.85in margin by default. This is considered a large margin by most poeple.\\ 
+To change the margin we can use the geometry package.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\documentclass{article}
+\usepackage[margin=1.25in]{geometry}
+\begin{document}
+The margin now is better :)
+\end{document}
+\end{lstlisting}
 \section{Document types}
 \subsection{Books}
 \subsection{Articles}
