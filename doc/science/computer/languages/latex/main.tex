@@ -6,8 +6,12 @@
 \usepackage[utf8]{inputenc}
 %hyperref is for inserting hyperlinks 
 \usepackage[colorlinks]{hyperref}
+
+% geometry packsge for managing page margins
+\usepackage[legalpaper, margin=2in]{geometry}
+
 %using bookmark to for table of content
-\usepackage{bookmark}
+%\usepackage{bookmark}
 
 % ---------- front page info ---------- %
 \title{How To \LaTeX}
@@ -16,25 +20,58 @@
 % ---------- end of preamble ---------- %
 \begin{document}
 \maketitle
+\section*{Preface}
 \tableofcontents
-\section*{Introduction}
-
+\newpage
 % ---------- part 1 -------------- %
 \part{Basics of \LaTeX}
 \chapter{The Basics}
-\section{Syntax}
+\section{An introdcution to \LaTeX \ }
+\subsection{Syntax}
+\subsection{Document Structure}
+A latex file has two main parts. The preamble and the document.
+The preable does not have content, but rather information about the document. 
+The first line of latex document is the documentclass. This command holds info on which type of
+document we want to create, and what are it's properties.
 \section{Compiling \LaTeX \ code}
+\subsection{Compiling on a Linux machine}
+To compile on a Linux machine you need to install the necessary packages.
+
+On a Debian based distrobution.
+\begin{lstlisting}[language=bash]
+sudo apt-get install texlive-full 
+\end{lstlisting}
+On a Fedora based distrobution. use one of the following packages.
+\begin{lstlisting}[language=bash]
+sudo dnf install texlive-scheme-basic
+sudo dnf install texlive-scheme-medium
+sudo dnf install texlive-scheme-full
+\end{lstlisting}
+\newpage
+\subsection{Known issues}
+\LaTeX \ requires double compilation for ceratin information to be properly embeded in the document.
+Usually this is first noticed when trying to create a talbe of contents command
+\begin{verbatim}
+\tableofcontents
+\end{verbatim}
+this could be confusing for new commers to \LaTeX \ but now you know.
+\newline
+\subsection{\LaTeX \ files}
 \chapter{Packages}
 \section{what is a package}
-A latex file has two main parts.
-\newline the fist part is called the preable and the second part is called the document part.
-\newline the first line of latex document is the documentclass. this command hold info on which type of
-document we want to make.
-\section{Fonts}
+\subsection{How to use a package}
+\subsection{Frequently used packages}
+\subsubsection{hyperref}
+The hyperref pakcage is used for creating links in the document as well as links 
+for sites out of the document. Such as links to websites or other apps.
+\subsubsection{inputenc}
 \chapter{Documents}
-\section{Books}
-\section{Articles}
-\section{Beamers}
+\section{Document style}
+\subsection{Margins}
+\section{Document types}
+\subsection{Books}
+\subsection{Articles}
+\subsection{Beamers}
 
 
 % ----- part 2 --------- %
@@ -57,7 +94,7 @@ appeard in the block
 Text in the verbatim block not processed as latex code.
 \begin{verbatim}
 \end{verbatim}
-Another way is to use lstlisiting block
+Another way is to use lstlisting block
 The lstlisting is part of the listings package.
 For more documentation about the listings package goto this \href{https://ctan.math.illinois.edu/macros/latex/contrib/listings/listings.pdf}{link}
 \newline For example:
