@@ -15,6 +15,7 @@ $(PDF_TARGET): $(LATEXIN)
 	rm -f $(addsuffix .log, $(PDFOUT)) $(addsuffix .aux, $(PDFOUT)) $(addsuffix .out, $(PDFOUT)) $(addsuffix .toc, $(PDFOUT))
 	echo "coping to web server"
 	sudo cp $(PDF_TARGET) /var/www/html/pdf/
+	echo -e "\033[0;32m Target Made Successfully \033[0m"
 
 delete web:
 	sudo rm /var/www/html/pdf/$(PDF_TARGET)

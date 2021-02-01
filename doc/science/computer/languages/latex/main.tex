@@ -30,9 +30,16 @@
 \subsection{Syntax}
 \subsection{Document Structure}
 A latex file has two main parts. The preamble and the document.
-The preable does not have content, but rather information about the document. 
-The first line of latex document is the documentclass. This command holds info on which type of
-document we want to create, and what are it's properties.
+The preamble does not have content only information about the document. 
+The first line of latex document is the documentclass. 
+\begin{verbatim}
+\documentclass[12pt]{book}
+\end{verbatim}
+This command tells the compiler the most general inforamtion, Which is type of
+document to create, and what are it's properties.
+The preamble can also include declaration of which packages will be used to create the document.
+\newline
+The second part of the document is the document itself. This is denoted by two 
 \section{Compiling \LaTeX \ code}
 \subsection{Compiling on a Linux machine}
 To compile on a Linux machine you need to install the necessary packages.
@@ -86,7 +93,7 @@ for sites out of the document. Such as links to websites or other apps.
 \newpage
 How to insert a code block into a latex document?
 \newline One way to emed code in the \LaTeX  file is by using a verbatim 
-block. Verabatim blocks will embed the text as it 
+block. Verbatim blocks will embed the text as it 
 appeard in the block
 \newline For exmaple:
 \begin{verbatim}
