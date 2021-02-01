@@ -8,7 +8,7 @@
 \usepackage[colorlinks]{hyperref}
 
 % geometry packsge for managing page margins
-\usepackage[legalpaper, margin=2in]{geometry}
+\usepackage[margin=1.25in]{geometry}
 
 %using bookmark to for table of content
 %\usepackage{bookmark}
@@ -26,20 +26,38 @@
 % ---------- part 1 -------------- %
 \part{Basics of \LaTeX}
 \chapter{The Basics}
+\newpage
 \section{An introdcution to \LaTeX \ }
 \subsection{Syntax}
 \subsection{Document Structure}
-A latex file has two main parts. The preamble and the document.
-The preamble does not have content only information about the document. 
-The first line of latex document is the documentclass. 
-\begin{verbatim}
+A \LaTeX \ source code file has two main parts. The preamble and the document.
+The preamble does not contain any content, rather it holds information about the document. 
+The first line of \LaTeX \ document is the documentclass command. 
+\begin{lstlisting}[language={[LaTeX]TeX}]
 \documentclass[12pt]{book}
-\end{verbatim}
-This command tells the compiler the most general inforamtion, Which is type of
-document to create, and what are it's properties.
-The preamble can also include declaration of which packages will be used to create the document.
+\end{lstlisting}
+This command tells the compiler the most general inforamtion, which is the type of
+document to create, as well as what are it's most general properties.
+The preamble can also include declaration of the packages that will be used to create the document.
 \newline
-The second part of the document is the document itself. This is denoted by two 
+The second part of the document is the document environment. An environment in \LaTeX \ is a block which will be processed aaccording to specific rules. 
+\newline The document environment is the outermost container that will hold the
+document. The environment block is denoted by two delimiters.
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\begin{document}
+%document content goes here
+\end{document{
+\end{lstlisting}
+Inside the document delimiters 
+The most basic document in \LaTeX \ will look like this.
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\documentclass{article}
+%preamble contonet goes here
+\begin{document}
+%document content goes here
+\end{document{
+\end{lstlisting}
+\newpage
 \section{Compiling \LaTeX \ code}
 \subsection{Compiling on a Linux machine}
 To compile on a Linux machine you need to install the necessary packages.
@@ -58,12 +76,19 @@ sudo dnf install texlive-scheme-full
 \subsection{Known issues}
 \LaTeX \ requires double compilation for ceratin information to be properly embeded in the document.
 Usually this is first noticed when trying to create a talbe of contents command
-\begin{verbatim}
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\documentclass{article}
+\begin{document}
 \tableofcontents
-\end{verbatim}
-this could be confusing for new commers to \LaTeX \ but now you know.
+\chapter{Chapter 1}
+\newpage
+\section{Section 1}
+\end{document}
+\end{lstlisting}
+this could be confusing for newcomers to \LaTeX \ but now you know.
 \newline
 \subsection{\LaTeX \ files}
+\newpage
 \chapter{Packages}
 \section{what is a package}
 \subsection{How to use a package}
@@ -72,6 +97,7 @@ this could be confusing for new commers to \LaTeX \ but now you know.
 The hyperref pakcage is used for creating links in the document as well as links 
 for sites out of the document. Such as links to websites or other apps.
 \subsubsection{inputenc}
+\newpage
 \chapter{Documents}
 \section{Document style}
 \subsection{Margins}
@@ -91,7 +117,7 @@ for sites out of the document. Such as links to websites or other apps.
 \end{verbatim}
 
 \newpage
-How to insert a code block into a latex document?
+How to insert a code block into a \LaTeX \ document?
 \newline One way to emed code in the \LaTeX  file is by using a verbatim 
 block. Verbatim blocks will embed the text as it 
 appeard in the block
@@ -112,5 +138,33 @@ if __name__=="__main__":
 \end{lstlisting}
 \end{verbatim}
 \subsection{Using GNU make}
-\end{document}
+The GNU make tool is widly used to create \LaTeX \ documents since it is very suited for such a task. 
+example code:
+\begin{lstlisting}[language=make]
 
+OUTDIR = $(shell pwd)
+TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
+PDFOUT = how_to_latex 
+PDF_TARGET = $(addsuffix .pdf, $(PDFOUT)) 
+LATEXIN = main.tex
+
+all: pdf
+
+pdf: $(PDF_TARGET)
+
+$(PDF_TARGET): $(LATEXIN)
+	$(TEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)
+	$(TEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)
+	echo "cleaning .aux and .log"
+	rm -f $(addsuffix .log, $(PDFOUT)) $(addsuffix .aux, $(PDFOUT)) $(addsuffix .out, $(PDFOUT)) $(addsuffix .toc, $(PDFOUT))
+	echo "coping to web server"
+	sudo cp $(PDF_TARGET) /var/www/html/pdf/
+	echo -e "\033[0;32m Target Made Successfully \033[0m"
+
+delete web:
+	sudo rm /var/www/html/pdf/$(PDF_TARGET)
+	
+clean:
+	rm  -f *.pdf *.aux *.dvi *.log *.toc
+\end{lstlisting}
+\end{document}
