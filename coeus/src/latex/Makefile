@@ -22,3 +22,4 @@ clean:
 	rm -f *.o
 	rm -f test
 	rm -f *.tex *.aux *.log
+	sudo rm -r latex_test

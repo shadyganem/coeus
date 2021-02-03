@@ -20,8 +20,9 @@ typedef enum
 	//memoir  - support will added in the future
 } LaTeXDocType;
 
-
 extern unsigned int latex_generate_template(const char* path, const char* output_filename, LaTeXDocType doc_type);
 extern const char*  latex_document_type_to_string(LaTeXDocType);
+extern LaTeXDocType latex_string_to_doc_type(const char* doc_type_srt);
+extern const char* latex_status_to_str(int status);
 
 #endif
