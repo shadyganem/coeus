@@ -6,14 +6,6 @@
 #include <unistd.h>
 #include <string.h>
 
-/* defines
- * typdefs
- * static globals
- * globals
- * fucntion decelartions
- * function impelmentation
- */
-
 enum STATUS
 {
     STATUS_OK,
@@ -164,7 +156,6 @@ extern unsigned int latex_generate_template(const char* project_title, LaTeXDocT
             }
             free(filename);
         }
-        
     }
     else
     {
@@ -197,7 +188,7 @@ extern LaTeXDocType latex_string_to_document_type(const char* doc_type_str)
             return document_type_handler[i].document;
         }
     }
-    return STATUS_BAD_DOC_TYPE;
+    return latex_undefined;
 }
 
 extern const char* latex_status_to_string(int status)

@@ -14,10 +14,11 @@ typedef enum
 	latex_book,
 	latex_letter,
 	latex_slides,
-	latex_beamer
+	latex_beamer,
 	//proc    - support will added in the future
 	//minimal - support will added in the future
 	//memoir  - support will added in the future
+    latex_undefined
 } LaTeXDocType;
 
 extern unsigned int latex_generate_template(const char* project_title, LaTeXDocType doc_type);

@@ -6,7 +6,6 @@ SRC = latex.c
 DEP = latex.c latex.h
 
 all: $(TARGET)
-	echo -e "\033[0;32m Target Made Successfully \033[0m"
 
 $(TARGET): $(DEP)
 	$(CC) $(FLAGS) -c $(SRC)
@@ -16,7 +15,6 @@ test: test.o $(TARGET)
 
 test.o: test.c
 	$(CC) -c test.c
-	echo -e "\033[0;32m Target Made Successfully \033[0m"
 
 clean_test:
 	rm -f test
