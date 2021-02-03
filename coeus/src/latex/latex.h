@@ -7,17 +7,6 @@
 #ifndef LATEX_H 
 #define LATEX_H 
 
-#define STATUS_OK 0
-
-typedef unsigned int uint;
-
-typedef enum
-{
-    LATEX_OK = 0,
-    LATEX_BAD_FILE = 100,
-    LATEX_BAD_DOC_TYPE = 101
-} LatexStatus;
-    
 typedef enum 
 {
 	latex_article,

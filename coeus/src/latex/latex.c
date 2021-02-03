@@ -4,26 +4,33 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <string.h>
 
-#define STATUS_OK 0
-#define STATUS_BAD_FOLDER 1
+enum STATUS
+{
+    STATUS_OK,
+    STATUS_BAD_FOLDER,
+    STATUS_BAD_FILE,
+    STATUS_BAD_MEM_ALLOC,
+    STATUS_BAD_DOC_TYPE
+};
 
 /*static fucntions declarations*/
+static unsigned int latex_generate_article_template(const char* path, const char* output_filename);
+static unsigned int latex_generate_report_template(const char* path, const char* output_filename);
 static unsigned int latex_generate_book_template(const char* path, const char* output_filename);
-static unsigned int latex_generate_article_template(const char* path, const char* output_filename);
+static unsigned int latex_generate_letter_template(const char* path, const char* output_filename);
+static unsigned int latex_generate_slides_template(const char* path, const char* output_filename);
 static unsigned int latex_generate_beamer_template(const char* path, const char* output_filename);
-static unsigned int latex_generate_proc_template(const char* path, const char* output_filename);
-static unsigned int latex_generate_article_template(const char* path, const char* output_filename);
-static unsigned int latex_generate_article_template(const char* path, const char* output_filename);
 static void latex_append_document_environment(FILE* latex_file);
-static unsigned int latex_create_folder_by_name(const char* folder_name);
 
-static unsigned int latex_create_folder_by_name(const char* path)
-{
-    unsigned int status;
-    status = mkdir(path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-    return status;
-}
+//static unsigned int latex_create_folder_by_name(const char* folder_name);
+//static unsigned int latex_create_folder_by_name(const char* path)
+//{
+//    enum STATUS status;
+//    status = mkdir(path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+//    return status;
+//}
 
 static char * latex_malloc_append_path(const char* str1, const char* str2)
 {
@@ -31,11 +38,9 @@ static char * latex_malloc_append_path(const char* str1, const char* str2)
     int str2_len = 0;
     int new_str_len = 0;
     char * new_str;
-
     str1_len = strlen(str1);
     str2_len = strlen(str2);
     new_str_len = str1_len + str2_len + 2;
-
     new_str = (char*) malloc(new_str_len * sizeof (char));
     if(new_str == NULL)
         return NULL;
@@ -62,62 +67,153 @@ static void latex_append_document_environment(FILE* latex_file)
     fprintf(latex_file, "\\end{document}\n");
 }
 
-static unsigned int latex_generate_book_template(const char* path, const char* output_filename)
-{
-    char *full_path;
-    unsigned int status = STATUS_OK;
-    FILE * latex_file;
-    full_path = latex_malloc_append_path(path, output_filename);
-
-    if (full_path != NULL)
-        printf("full_path = %s\n", full_path);
-    latex_create_folder_by_name((const char*) path); 
-    printf("folder was created successfully\n");
-    latex_file = fopen("main.tex", "w");
-    fprintf(latex_file, "\documentclass{book}\n\n");
-    latex_append_document_environment(latex_file);
-    fclose(latex_file);
-
-    if (latex_create_folder_by_name((const char*) path) != 0)
-    {
-        status = STATUS_BAD_FOLDER;
-    }
-    else
-    {
-        printf("folder was created successfully\n");
-        latex_file = fopen("main.tex", "w");
-        fprintf(latex_file, "\documentclass{book}");
-        fprintf(latex_file, "\begin{document}");
-        fprintf(latex_file, "\end{document}");
-        fclose(latex_file);
-    }
-
-    free(full_path);
-    return status; 
-}
 
 static unsigned int latex_generate_article_template(const char* path, const char* output_filename)
 {
-    LatexStatus status = STATUS_OK;
-	printf("latex_generate_article_template\n");	
+    enum STATUS status = STATUS_OK;
+    FILE * latex_file;
+    latex_file = fopen("main.tex", "w");
+    if (latex_file != NULL)
+    {
+        fprintf(latex_file, "\\documentclass{article}\n\n");
+        latex_append_document_environment(latex_file);
+        fclose(latex_file);
+    }
+    else
+    {
+        status = STATUS_BAD_FILE;
+    }
+    return status; 
+}
+
+static unsigned int latex_generate_report_template(const char* path, const char* output_filename)
+{
+    enum STATUS status = STATUS_OK;
+    FILE * latex_file;
+    latex_file = fopen("main.tex", "w");
+    if (latex_file != NULL)
+    {
+        fprintf(latex_file, "\\documentclass{report}\n\n");
+        latex_append_document_environment(latex_file);
+        fclose(latex_file);
+    }
+    else
+    {
+        status = STATUS_BAD_FILE;
+    }
+    return status; 
+}
+
+static unsigned int latex_generate_book_template(const char* path, const char* output_filename)
+{
+    enum STATUS status = STATUS_OK;
+    FILE * latex_file;
+    latex_file = fopen("main.tex", "w");
+    if (latex_file != NULL)
+    {
+        fprintf(latex_file, "\\documentclass{book}\n\n");
+        latex_append_document_environment(latex_file);
+        fclose(latex_file);
+    }
+    else
+    {
+        status = STATUS_BAD_FILE;
+    }
+    return status; 
+}
+
+static unsigned int latex_generate_letter_template(const char* path, const char* output_filename)
+{
+    enum STATUS status = STATUS_OK;
+    FILE * latex_file;
+    latex_file = fopen("main.tex", "w");
+    if (latex_file != NULL)
+    {
+        fprintf(latex_file, "\\documentclass{letter}\n\n");
+        latex_append_document_environment(latex_file);
+        fclose(latex_file);
+    }
+    else
+    {
+        status = STATUS_BAD_FILE;
+    }
+    return status; 
+}
+
+static unsigned int latex_generate_slides_template(const char* path, const char* output_filename)
+{
+    enum STATUS status = STATUS_OK;
+    FILE * latex_file;
+    latex_file = fopen("main.tex", "w");
+    if (latex_file != NULL)
+    {
+        fprintf(latex_file, "\\documentclass{slides}\n\n");
+        latex_append_document_environment(latex_file);
+        fclose(latex_file);
+    }
+    else
+    {
+        status = STATUS_BAD_FILE;
+    }
+    return status; 
+}
+
+static unsigned int latex_generate_beamer_template(const char* path, const char* output_filename)
+{
+    enum STATUS status = STATUS_OK;
+    FILE * latex_file;
+    latex_file = fopen("main.tex", "w");
+    if (latex_file != NULL)
+    {
+        fprintf(latex_file, "\\documentclass{beamer}\n\n");
+        latex_append_document_environment(latex_file);
+        fclose(latex_file);
+    }
+    else
+    {
+        status = STATUS_BAD_FILE;
+    }
     return status; 
 }
 
 extern unsigned int latex_generate_template(const char* path, const char* output_filename, LaTeXDocType document)
 {
-    LatexStatus status = LATEX_OK;
-    switch(document)
+    char *full_path;
+    enum STATUS status = STATUS_OK;
+    full_path = latex_malloc_append_path(path, output_filename);
+    if (full_path != NULL)
     {
-        case latex_book:
-            status = latex_generate_book_template(path, output_filename);
-            break;
-        case latex_article:
-            status = latex_generate_article_template(path, output_filename);
-            break;
-        default:
-            printf("no document type is not recognized\n");
-            status = LATEX_BAD_DOC_TYPE;
-    }
+        printf("full_path = %s\n", full_path);
+        switch(document)
+        {
+            case latex_article:
+                status = latex_generate_article_template(path, output_filename);
+                break;
+            case latex_report:
+                status = latex_generate_report_template(path, output_filename);
+                break;
+            case latex_book:
+                status = latex_generate_book_template(path, output_filename);
+                break;
+            case latex_letter:
+                status = latex_generate_letter_template(path, output_filename);
+                break;
+            case latex_slides:
+                status = latex_generate_slides_template(path, output_filename);
+                break;
+            case latex_beamer:
+                status = latex_generate_beamer_template(path, output_filename);
+                break;
+            default:
+                printf("no document type is not recognized\n");
+                status = STATUS_BAD_DOC_TYPE;
+        }
+        free(full_path);
+    } 
+    else
+    {
+        status = STATUS_BAD_MEM_ALLOC;
+    }    
 	return status;
 }
 
