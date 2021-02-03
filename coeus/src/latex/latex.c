@@ -103,22 +103,25 @@ static void latex_append_document_environment(FILE* latex_file, const char* titl
     fprintf(latex_file, "\\end{document}\n");
 }
 
-extern unsigned int latex_generate_template(const char* path, const char* output_filename, LaTeXDocType document)
+extern unsigned int latex_generate_template(const char* project_title, LaTeXDocType document)
 {
     enum STATUS status = STATUS_OK;
+    FILE* make_file;
+    FILE* latex_file;
+    char* filename;
     int check;
-    check = mkdir(output_filename, 0777);
+
+    check = mkdir(project_title, 0777);
     if (check == 0)
     {
-        FILE * latex_file;
-        char* filename = latex_malloc_append_path(output_filename, "main.tex");
+        filename = latex_malloc_append_path(project_title, "main.tex");
         if (filename != NULL)
         {
             latex_file = fopen(filename, "w");
             if (latex_file != NULL)
             {
                 fprintf(latex_file, "\\documentclass{%s}\n\n", latex_document_type_to_string(document));
-                latex_append_document_environment(latex_file, output_filename);
+                latex_append_document_environment(latex_file, project_title);
                 fclose(latex_file);
             }
             else
@@ -131,6 +134,37 @@ extern unsigned int latex_generate_template(const char* path, const char* output
         {
             status = STATUS_BAD_MEM_ALLOC;
         }
+        //Makefile block
+        filename = latex_malloc_append_path(project_title, "Makefile");
+        if (filename != NULL)
+        {
+            make_file = fopen(filename, "w");
+            if (make_file != NULL)
+            {
+                fprintf(make_file,"OUTDIR = $(shell pwd)\n");
+                fprintf(make_file,"TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error\n");
+                fprintf(make_file,"PDFTEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error\n");
+                fprintf(make_file,"PDFOUT = %s\n", project_title);
+                fprintf(make_file,"PDF_TARGET = $(addsuffix .pdf, $(PDFOUT))\n");
+                fprintf(make_file,"LATEXIN = main.tex\n\n");
+                fprintf(make_file,"all: pdf\n\n");
+                fprintf(make_file,"pdf: $(PDF_TARGET)\n\n");
+                fprintf(make_file,"$(PDF_TARGET): $(LATEXIN)\n");
+                fprintf(make_file,"\t$(PDFTEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)\n");
+                fprintf(make_file,"\t$(PDFTEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)\n");
+                fprintf(make_file,"\techo -e \"\\033[0\\32m Target Made Successfully \\033[0m\"\n\n");
+                fprintf(make_file,"clean:\n");
+                fprintf(make_file,"\trm  -f *.pdf *.aux *.dvi *.log *.toc\n");
+            
+                fclose(make_file);
+            }
+            else
+            {
+                status = STATUS_BAD_FILE;
+            }
+            free(filename);
+        }
+        
     }
     else
     {

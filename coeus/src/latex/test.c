@@ -21,7 +21,7 @@ int test_main()
     LaTeXDocType doc_type = latex_book;
     if(getcwd(path, FILENAME_MAX) != NULL)
     {
-        int status = latex_generate_template(path, filename, 1);
+        int status = latex_generate_template(filename, latex_beamer);
         if (status  != 0)
         {
             printf("LaTeX ERROR: %s\n", latex_status_to_string(status));
