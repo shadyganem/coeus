@@ -18,8 +18,10 @@ test.o: test.c
 	$(CC) -c test.c
 	echo -e "\033[0;32m Target Made Successfully \033[0m"
 
-clean:
-	rm -f *.o
+clean_test:
 	rm -f test
 	rm -f *.tex *.aux *.log
 	sudo rm -r latex_test
+
+clean:
+	rm -f *.o
