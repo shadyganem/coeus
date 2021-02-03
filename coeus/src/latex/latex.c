@@ -92,8 +92,8 @@ static void latex_str_replace(char* str,char ch1, char ch2)
 static void latex_append_document_environment(FILE* latex_file, const char* title)
 {
     int title_len = strlen(title);
-    char * title_copy = (char *) malloc(title_len * sizeof (char));
-    latex_str_replace(strcpy(title_copy, title), '_', ' ');
+    char * title_copy = (char *) malloc(title_len * sizeof (char)); 
+    latex_str_replace(strcpy(title_copy, title), '_', ' '); 
     fprintf(latex_file, "\\title{%s}\n", title_copy);
     free(title_copy);
     fprintf(latex_file, "\\author{Johnny English}\n\n");
@@ -153,7 +153,7 @@ extern const char* latex_document_type_to_string(LaTeXDocType doc_type)
     return wrong_type_str;
 }
 
-extern LaTeXDocType latex_string_to_doc_type(const char* doc_type_str)
+extern LaTeXDocType latex_string_to_document_type(const char* doc_type_str)
 {
     int document_type_handler_num_of_el =  sizeof(document_type_handler)/sizeof(document_type_handler[0]);
     for (int i = 0; i < document_type_handler_num_of_el; i++)
@@ -166,7 +166,7 @@ extern LaTeXDocType latex_string_to_doc_type(const char* doc_type_str)
     return STATUS_BAD_DOC_TYPE;
 }
 
-extern const char* latex_status_to_str(int status)
+extern const char* latex_status_to_string(int status)
 {
     static const char* status_not_defined_str = "STATUS NOT DEFINED";
     int status_handler_num_of_el =  sizeof(status_handler)/sizeof(status_handler[0]);
