@@ -10,6 +10,9 @@ all: $(TARGET)
 $(TARGET): $(DEP)
 	$(CC) $(FLAGS) -c $(SRC)
 
+clean:
+	rm -f *.o
+
 test: test.o $(TARGET)
 	$(CC) $(FLAGS) -o test test.o $(TARGET)
 
@@ -20,6 +23,3 @@ clean_test:
 	rm -f test
 	rm -f *.tex *.aux *.log
 	sudo rm -r latex_test
-
-clean:
-	rm -f *.o

@@ -6,139 +6,54 @@
 #include <unistd.h>
 #include "latex/latex.h"
 
-
 struct flag
 {
-    char* flag_str;
-    bool flag_on;
-    bool optional;
-    bool arg;
+    char* f_str;
+    bool f_on;
+    bool f_opt;
+    bool f_arg_req;
+    const char* f_arg;
 };  
 
 struct command 
 {
-    const char* command_name;
-    int num_of_flags;
-    struct flag* flags;
-    int (* command_callback)(int argc, char ** argv, struct flag* command_flags, int num_of_flags);
+    const char* c_name;
+    int c_num_of_flags;
+    struct flag* c_flags;
+    int (* c_callback)(int flagc, struct flag* flagv);
 };
 
-void print_latex_help_and_die(void)
+struct context 
 {
-    printf("coeus manage LaTeX documentation");
+    const char* context_name;
+    int num_of_commands;
+    struct command* commands;
+};
+
+int latex_help_callback(int flagc, struct flag* flagv)
+{
+    //help_flags is a NULL pointer
+    printf("coeus helps you manage and automate LaTeX documentation");
     printf("Usage:\n");
     printf("coeus latex help/-h - print help on latex\n");
-    exit(EXIT_SUCCESS);
+    return 0;
 }
 
-int latex_new(int argc, char ** argv, struct flag * new_flags, int num_of_flags)
+int latex_new_callback(int flagc, struct flag* flagv)
 {
-    LaTeXDocType doc;
-    int flag_check = true;
-    char * output_dir;
+    //LaTeXDocType doc;
+    //int flag_check = true;
+    //char * output_dir;
     //checking that all requried flags exit
-    for (int i = 0; i < num_of_flags; i++)
-    {
-        if (new_flags[i].optional == false && new_flags[i].flag_on == false)
-        {
-            printf("please provide docment type after %s is required for command new\n", new_flags[i].flag_str);
-            flag_check = false;
-        }
-    }
-    if (flag_check == true)
-    {
-        for (int i = 0; i < num_of_flags; i ++)
-        {
-            if (new_flags[i].flag_on == true)
-            {
-                if (strcmp(new_flags[i].flag_str,"-d") == 0)
-                {
-                    for (int j = 0; j < argc; j++)
-                    {
-                        if (strcmp(argv[j], new_flags[i].flag_str) == 0)
-                        {
-                            if (j+1 < argc)
-                                doc = latex_string_to_document_type(argv[j+1]);
-                            //TODO: handle the case where input is missing 
-                                
-                        }
-                    }
-                }
-                else if (strcmp(new_flags[i].flag_str,"-o") == 0)
-                {
-                    for (int j = 0; j < argc; j++)
-                    {
-                        if (strcmp(argv[j], new_flags[i].flag_str) == 0)
-                        {
-                            if (j+1 < argc)
-                            output_dir = argv[j+1];
-                            //TODO:handler the case whete input is missing 
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else
-    {
-        return 1;
-    }
+    //for (int i = 0; i < flagc; i++)
+    //{
+    //    if (flagv[i].f_opt == false && flagv[i].f_on == false)
+    //    {
+    //        printf("please provide docment type after %s is required for command new\n", flagv[i].f_str);
+    //        flag_check = false;
+    //    }
+    //}
     return 0;
-}
-
-int latex_find(int argc, char ** argv, struct flag * find_flags, int num_of_flags)
-{
-    printf("latex find\n");
-    return 0;
-}
-
-void latex_callback_and_die(int argc, char** argv)
-{
-    int status;
-    // command for latex "new", "find", "delete", "check", "help"
-    // {flag_str, falg_on , optional, arg
-    struct flag new_flags[] = {{"-o", false, true, true}, {"-d", false, false, true}, {"-h", false, true, false}};
-    struct flag find_flags[] = {{"-h", false, true, false}};
-    // { command_name, flag_array )}
-    // help is not includes here 
-    struct command latex_commands[] = { {"new" ,sizeof(new_flags)/sizeof(new_flags[0]), new_flags, latex_new},
-                                        {"find",sizeof(find_flags)/sizeof(find_flags[0]), find_flags, latex_find}};
-    
-    int num_of_commands = sizeof(latex_commands)/sizeof(latex_commands[0]);
-
-    if (argc == 0) print_latex_help_and_die();
-    if (strcmp(argv[0], "help") == 0) print_latex_help_and_die();
-    if (strcmp(argv[0], "-h") == 0) print_latex_help_and_die();
-    
-    for (int i = 0; i < num_of_commands; i++)
-    {
-        if (strcmp(latex_commands[i].command_name, argv[0]) == 0)
-        {
-            //finding which flags are on and which are not 
-            for (int j = 0; j < latex_commands[i].num_of_flags; j++)
-            {
-                for (int k = 1; k < argc; k++)
-                {
-                    if (strcmp(argv[k], latex_commands[i].flags[j].flag_str) == 0)
-                    {
-                        latex_commands[i].flags[j].flag_on = true;
-                    }
-                }
-            }
-            status = latex_commands[i].command_callback(--argc, ++argv,latex_commands[i].flags, latex_commands[i].num_of_flags);
-            //brek from the loop
-            break;
-        }
-    } 
-    if (status == 0)
-    {
-        exit(EXIT_SUCCESS);
-    }
-    else
-    {
-        printf("LaTeX ERROR: something went wrong\n");
-        exit(EXIT_SUCCESS);
-    }
 }
 
 void print_help_and_die(void)
@@ -149,16 +64,102 @@ void print_help_and_die(void)
     exit(EXIT_SUCCESS);
 }
 
+bool flags_ok(int flagc, struct flag* flagv, int argc, char** argv)
+{
+    //assuming argument start from argv[0]
+}
+
 int main(int argc, char** argv)
 {
+    //each context has it's commands {context_name, num_of_commands, commands[]}
+    //each command has a callback function and flags {command_name, num_of_flags, flags[], (*c_callback)}
+    //each flag has {f_str, f_on, f_opt, f_arg_req, f_arg} 
+    struct flag latex_new_flags[] = {{"-d", false, false, true, NULL}, 
+                                    {"-o", false, true, true, NULL}};
+
+    struct command latex_commands[] = {{"new", sizeof(latex_new_flags)/sizeof(latex_new_flags[0]), latex_new_flags, latex_new_callback},
+                                       {"help", 0, NULL , latex_help_callback}};
+
+    struct context contexts[] = {{"latex",sizeof(latex_commands)/sizeof(latex_commands[0]), latex_commands}};
+    int num_of_contexts = sizeof(contexts)/sizeof(contexts[0]);
+
+    //declaring branching flags
+    int context_found_flag = false;
+    int command_found_flag = false;
+
+    int context_index = 0;
+    int command_index = 0;
+
     //skipping the first arg
     argc--;
     argv++;
-    if (argc == 0) print_help_and_die();
+    if (argc == 0) exit(EXIT_SUCCESS); //calling without context is a shame
     if (strcmp(argv[0], "help") == 0) print_help_and_die();
     if (strcmp(argv[0], "-h") == 0) print_help_and_die();
-    if (strcmp(argv[0], "latex") == 0) latex_callback_and_die(--argc, ++argv);
-    printf("Wrong Input\n");
-    print_help_and_die();
+
+    for (int i = 0; i < num_of_contexts; i++)
+    {
+        if (strcmp(argv[0], contexts[i].context_name) == 0) 
+        {
+            context_found_flag = true;
+            context_index = i;
+        }
+    } 
+
+    //skipping the second arg
+    argc--;
+    argv++;
+
+    if (context_found_flag)
+    {
+        printf("context %s\n", contexts[context_index].context_name);
+        if (argc != 0 && contexts[context_index].commands != NULL) //never dereference a pointer without checking first
+        {
+            for (int i = 0; i < contexts[context_index].num_of_commands; i++)
+            {
+                if (strcmp((contexts[context_index]).commands[i].c_name, argv[0]) == 0) //command found
+                {
+                    command_found_flag = true;
+                    command_index = i;
+                }
+            }
+        }
+        //skipping the third arg
+        argc--;
+        argv++;
+        struct command * current_command = &contexts[context_index].commands[command_index];
+        int command_status = 1;
+        if (command_found_flag) //handle command
+        {
+            if (argc != 0 &&  current_command != NULL)
+            {
+                printf("command %s\n", contexts[context_index].commands[command_index].c_name);
+                if(flags_ok(current_command->c_num_of_flags, current_command->c_flags, argc, argv))
+                {
+                    command_status = current_command->c_callback(current_command->c_num_of_flags, current_command->c_flags);
+                }
+            }
+            else
+            {
+                printf("Wrong input\n");
+                printf("Type coeus %s help for more info\n", contexts[context_index].context_name);
+            }
+
+            if (command_status != 0)
+            {
+                printf("Command %s %s Had Failed\n", contexts[context_index].context_name, current_command->c_name);
+            }
+        }
+        else
+        {
+            printf("Wrong input\n");
+            printf("Type coeus %s help for more info\n", contexts[context_index].context_name);
+        }
+    }
+    else
+    {
+        printf("Wrong input\n");
+        printf("Type \"coeus help\" for more info\n");
+    }
     return 0;
 }
