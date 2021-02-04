@@ -68,7 +68,6 @@ static char* latex_malloc_append_path(const char* str1, const char* str2)
 
 static void latex_str_replace(char* str,char ch1, char ch2)
 {
-    printf("original str %s\n", str);
     int str_len = 0;
     str_len = strlen(str);
     for (int i = 0; i < str_len; i++)
@@ -78,7 +77,6 @@ static void latex_str_replace(char* str,char ch1, char ch2)
             str[i] = ch2;
         }
     }
-    printf("modified str %s\n", str);
 }
 
 static void latex_append_document_environment(FILE* latex_file, const char* title)

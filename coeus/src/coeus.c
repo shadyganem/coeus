@@ -41,18 +41,37 @@ int latex_help_callback(int flagc, struct flag* flagv)
 
 int latex_new_callback(int flagc, struct flag* flagv)
 {
-    //LaTeXDocType doc;
-    //int flag_check = true;
-    //char * output_dir;
-    //checking that all requried flags exit
-    //for (int i = 0; i < flagc; i++)
-    //{
-    //    if (flagv[i].f_opt == false && flagv[i].f_on == false)
-    //    {
-    //        printf("please provide docment type after %s is required for command new\n", flagv[i].f_str);
-    //        flag_check = false;
-    //    }
-    //}
+    char title[100];
+    LaTeXDocType doc;
+    const char *path;
+    for (int i = 0; i < flagc; i++)
+    {
+        if (flagv[i].f_on == true)
+        {
+            if (strcmp(flagv[i].f_str, "-d") == 0)
+            {
+                doc = latex_string_to_document_type(flagv[i].f_arg);
+                if (doc == latex_undefined)
+                {
+                    printf("undefined LaTeX Document\n");
+                    return 1;
+                }
+            }
+            else if (strcmp(flagv[i].f_str, "-o") == 0)
+            {
+                path = flagv[i].f_arg;
+                printf("path = %s\n", path);
+            }
+        }
+
+    }
+    printf("Enter Document title: ");
+    scanf("%s", title);
+    int status = latex_generate_template(title, doc);
+    if (status != 0)
+    {
+        return 1;
+    }
     return 0;
 }
 
@@ -68,28 +87,56 @@ bool flags_ok(int flagc, struct flag* flagv, int argc, char** argv)
 {
     //assuming argument start from argv[0]
     //need to check porinter are ok 
-    int arg_index;
-    bool flag_exit;
-    int flag_ok;
+
+    //first we will check that the required flags are here
+    bool flag_found = false;
     for (int i = 0; i < flagc; i++)
     {
-        flag_exit = false;
-        for (int j = 0; j < argc; j++)
+        if (flagv[i].f_opt == false)
         {
-            if (strcmp(flagv[i].f_str, argv[j]) == 0)
+            for (int j = 0; j < argc; j++)
             {
-                flag_exit = true;
-                arg_index = j;
+                if (strcmp(argv[j], flagv[i].f_str) == 0)
+                {
+                    flag_found = true;
+                    break;
+                }
+            }
+            if (flag_found == false)
+            { 
+                for (int j = 0; j < flagc; j++)
+                {
+                    if (flagv[j].f_opt == false)
+                        printf("flag %s is required\n", flagv[j].f_str);
+                }
+                return false;
             }
         }
-        if (flagv[i].f_opt == false && flag_exit == false)
-        {
-            printf("ERROR: Flag %s is required\n", flagv[i].f_str);
-            return false;
-        }
-        if (flagv[i].f_arg_req == true 
-
     }
+    // now that we know that all the required input is here
+    for (int i = 0; i < argc; i++)
+    {
+        for (int j = 0; j < flagc; j++)
+        {
+            if (strcmp(flagv[j].f_str, argv[i]) == 0)
+            {
+                flagv[j].f_on = true;
+                if (flagv[j].f_arg_req == true)
+                {
+                    if (i == argc - 1)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        flagv[j].f_arg = argv[++i];
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return true;
 }
 
 int main(int argc, char** argv)
@@ -132,7 +179,6 @@ int main(int argc, char** argv)
 
     if (context_found_flag)
     {
-        printf("context %s\n", contexts[context_index].context_name);
         if (argc != 0 && contexts[context_index].commands != NULL) //never dereference a pointer without checking first
         {
             for (int i = 0; i < contexts[context_index].num_of_commands; i++)
@@ -153,7 +199,6 @@ int main(int argc, char** argv)
         {
             if (argc != 0 &&  current_command != NULL)
             {
-                printf("command %s\n", contexts[context_index].commands[command_index].c_name);
                 if(flags_ok(current_command->c_num_of_flags, current_command->c_flags, argc, argv))
                 {
                     command_status = current_command->c_callback(current_command->c_num_of_flags, current_command->c_flags);

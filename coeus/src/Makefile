@@ -27,4 +27,4 @@ uninstall:
 clean:
 	rm $(TARGET)
 	make clean -C latex/
-	rm -f *.o *.h.gch
+	rm -f *.o *.h.gch *.out
