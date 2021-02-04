@@ -67,6 +67,29 @@ void print_help_and_die(void)
 bool flags_ok(int flagc, struct flag* flagv, int argc, char** argv)
 {
     //assuming argument start from argv[0]
+    //need to check porinter are ok 
+    int arg_index;
+    bool flag_exit;
+    int flag_ok;
+    for (int i = 0; i < flagc; i++)
+    {
+        flag_exit = false;
+        for (int j = 0; j < argc; j++)
+        {
+            if (strcmp(flagv[i].f_str, argv[j]) == 0)
+            {
+                flag_exit = true;
+                arg_index = j;
+            }
+        }
+        if (flagv[i].f_opt == false && flag_exit == false)
+        {
+            printf("ERROR: Flag %s is required\n", flagv[i].f_str);
+            return false;
+        }
+        if (flagv[i].f_arg_req == true 
+
+    }
 }
 
 int main(int argc, char** argv)
@@ -86,10 +109,8 @@ int main(int argc, char** argv)
     //declaring branching flags
     int context_found_flag = false;
     int command_found_flag = false;
-
     int context_index = 0;
     int command_index = 0;
-
     //skipping the first arg
     argc--;
     argv++;
@@ -105,7 +126,6 @@ int main(int argc, char** argv)
             context_index = i;
         }
     } 
-
     //skipping the second arg
     argc--;
     argv++;
