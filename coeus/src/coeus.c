@@ -25,12 +25,6 @@ int latex_new_callback(int flagc, struct flag* flagv)
     char * current_path;
     const char * path;
 
-    current_path = (char*) malloc(PATH_MAX * sizeof (char));
-    if (current_path == NULL)
-    { 
-        printf("malloc failed at latex_new_callback line: %d\n", __LINE__);
-        return 1;
-    }
     for (int i = 0; i < flagc; i++)
     {
         if (flagv[i].f_on == true)
@@ -46,6 +40,12 @@ int latex_new_callback(int flagc, struct flag* flagv)
             }
             else if (strcmp(flagv[i].f_str, "-o") == 0)
             {
+                current_path = (char*) malloc(PATH_MAX * sizeof (char));
+                if (current_path == NULL)
+                { 
+                    printf("malloc failed at latex_new_callback line: %d\n", __LINE__);
+                    return 1;
+                }
                 path = flagv[i].f_arg;
                 printf("path = %s\n", path);
                 if (getcwd(current_path, PATH_MAX) != NULL)
@@ -75,12 +75,15 @@ int latex_new_callback(int flagc, struct flag* flagv)
     {
         return 1;
     }
-    
-    if(chdir(current_path) != 0)
+   
+    if (is_flag_on(flagc, flagv, "-o") == 0) 
     {
-        printf("debug print chdir failed on the second attepmt");
-        free(current_path);
-        return 1;
+        if(chdir(current_path) != 0)
+        {
+            printf("debug print chdir failed on the second attepmt\n");
+            free(current_path);
+            return 1;
+        }
     }
     free(current_path);
     return 0;

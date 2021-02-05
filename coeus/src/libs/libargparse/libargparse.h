@@ -1,6 +1,6 @@
 #ifndef _LIBARGPARSE_H_
 #define _LIBARGPARSE_H_
-
+#include <stdbool.h>
 struct flag
 {
     char* f_str;

@@ -9,4 +9,5 @@ $(TARGET): $(SRC)
 	$(CC) $(FLAGS) -c $(SRC)
 
 clean:
-	rm *.o
+	rm -f *.o *.h.gch
+
