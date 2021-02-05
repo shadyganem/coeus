@@ -142,7 +142,7 @@ extern unsigned int latex_generate_template(const char* project_title, LaTeXDocT
                 fprintf(make_file,"$(PDF_TARGET): $(LATEXIN)\n");
                 fprintf(make_file,"\t$(PDFTEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)\n");
                 fprintf(make_file,"\t$(PDFTEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)\n");
-                fprintf(make_file,"\techo -e \"\\033[0\\32m Target Made Successfully \\033[0m\"\n\n");
+                fprintf(make_file,"\techo -e \"\\033[92m Target Made Successfully \\033[0m\"\n\n");
                 fprintf(make_file,"clean:\n");
                 fprintf(make_file,"\trm  -f *.pdf *.aux *.dvi *.log *.toc\n");
             

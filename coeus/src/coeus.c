@@ -4,31 +4,10 @@
 #include <stdlib.h>
 #include "defines.h"
 #include <unistd.h>
+#include <limits.h>
 #include "latex/latex.h"
+#include "libs/libargparse/libargparse.h"
 
-struct flag
-{
-    char* f_str;
-    bool f_on;
-    bool f_opt;
-    bool f_arg_req;
-    const char* f_arg;
-};  
-
-struct command 
-{
-    const char* c_name;
-    int c_num_of_flags;
-    struct flag* c_flags;
-    int (* c_callback)(int flagc, struct flag* flagv);
-};
-
-struct context 
-{
-    const char* context_name;
-    int num_of_commands;
-    struct command* commands;
-};
 
 int latex_help_callback(int flagc, struct flag* flagv)
 {
@@ -43,7 +22,15 @@ int latex_new_callback(int flagc, struct flag* flagv)
 {
     char title[100];
     LaTeXDocType doc;
-    const char *path;
+    char * current_path;
+    const char * path;
+
+    current_path = (char*) malloc(PATH_MAX * sizeof (char));
+    if (current_path == NULL)
+    { 
+        printf("malloc failed at latex_new_callback line: %d\n", __LINE__);
+        return 1;
+    }
     for (int i = 0; i < flagc; i++)
     {
         if (flagv[i].f_on == true)
@@ -61,10 +48,26 @@ int latex_new_callback(int flagc, struct flag* flagv)
             {
                 path = flagv[i].f_arg;
                 printf("path = %s\n", path);
+                if (getcwd(current_path, PATH_MAX) != NULL)
+                {
+                    if(chdir(path) != 0)
+                    {
+                        printf("debug print chdir failed");
+                        free(current_path);
+                        return 1;
+                    }
+                }
+                else 
+                {
+                    printf("debug print getcwd faild\n");
+
+                    free(current_path);
+                    return 1;
+                }
             }
         }
-
     }
+
     printf("Enter Document title: ");
     scanf("%s", title);
     int status = latex_generate_template(title, doc);
@@ -72,6 +75,14 @@ int latex_new_callback(int flagc, struct flag* flagv)
     {
         return 1;
     }
+    
+    if(chdir(current_path) != 0)
+    {
+        printf("debug print chdir failed on the second attepmt");
+        free(current_path);
+        return 1;
+    }
+    free(current_path);
     return 0;
 }
 
@@ -79,7 +90,8 @@ void print_help_and_die(void)
 {
     printf("coeus is a documentation assistance tool\n");
     printf("Usage:\n");
-    printf("coeus -h for help\n");
+    printf("coeus help for printing help\n");
+    printf("coeus latex of LaTeX related commands\n");
     exit(EXIT_SUCCESS);
 }
 
