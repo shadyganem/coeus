@@ -15,13 +15,32 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\listoftodos[TODO list]
 
 \part{The C Language}
-\chapter{Introdution}
-\section{The Basics}
-The C programming originally developed by Dennis Rechie and Ken Thompson in 1972. The C language took a huge 
-role in the development of the unix operating system.
+\chapter{Introduction}
+\section{About the language}
+The C programming langauge originally developed by Dennis Rechie and Ken Thompson in 1972, 
+is a multi purpose language. The C language was developed for the development of the unix operating system.
 \todo{finish writing this section}
-\section{keywords}
-%Content goes here
+\section{Hello, World!}
+In order to write the famous beginer program in C on a unix based OS using gcc.\\
+First create a new .c file. \\
+Type in the terminal:
+\begin{lstlisting}[language=bash]
+touch hello.c
+\end{lstlisting}
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello, Wrold!\n");
+}
+\end{lstlisting}
+To compile this program\\
+Type in the terminal:
+\begin{lstlisting}[language=bash]
+gcc hello.c -o hello
+\end{lstlisting}
 \end{document}

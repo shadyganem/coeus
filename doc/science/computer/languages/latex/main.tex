@@ -6,10 +6,8 @@
 \usepackage[utf8]{inputenc}
 %hyperref is for inserting hyperlinks 
 \usepackage[colorlinks]{hyperref}
-
 % geometry packsge for managing page margins
 \usepackage[margin=1.0in]{geometry}
-
 \usepackage{todonotes}
 %tikz this package is used for creating drawings
 \usepackage{tikz}
@@ -23,8 +21,13 @@
 % ---------- end of preamble ---------- %
 \begin{document}
 \maketitle
+
 \section*{Preface}
+
+{
+\hypersetup{linkcolor=black}
 \tableofcontents
+}
 \newpage
 \listoftodos[TODO list]
 % ---------- part 1 -------------- %
@@ -32,30 +35,35 @@
 
 % ----- chapter A Totorial Introduction 
 \chapter{A Tutorial Introduction}
+
 \section{Introdcution to \LaTeX \ }
+
 \subsection{What is \LaTeX \ }
 \todo{go through the document and replace newline commnad with a double backsladsh}
 First let's begin with the pronunciation. \LaTeX \ is pronounced Lay-tek or Lah-tek and not Lay-teks. 
 That is something that I got wrong when I first crossed paths with \LaTeX \ and I am making sure you won't.\\
 Now that we know how to pronounce the name corrently let's dive into what is \LaTeX. Well, \LaTeX \ is a software tool 
 for creating documents. The user writes code in plain text. The code is later processed to genereate a 
-a document with all the visual aspects taken care of. \LaTeX, unlike other word processing tools let's the user focus on the content and leave the visual asspects of the document to the software engine. 
-\newline 
-There are two ways to use \LaTeX, one is to downlaod packages onto your computer, and the second is to use a cloud based editor.
+a document with all the visual aspects taken care of. \LaTeX, unlike other word processing tools 
+let's the user focus on the content and leave the visual asspects of the document to the software engine.\\
+There are two ways to use \LaTeX, one is to downlaod packages onto your computer, and the second is to use a 
+cloud based editor.
 I use the \href{https://tug.org/texlive/}{TEX Live} Distrobution on Linux. Mac Users can use
-\href{https://www.tug.org/mactex/}{MacTEX}. It is important to note that this method could require additional tweeking to get it to work properly.
-\newline
+\href{https://www.tug.org/mactex/}{MacTEX}. It is important to note that this method could 
+require additional tweeking to get it to work properly.\\
 Another good way to create documents with \LaTeX \ is by using a cloud based editor. 
 \href{https://www.overleaf.com}{Overleaf} is a robust enough editor for students and small projects.
-Ther are many great resources to learn \LaTeX \ online. 
-\newline 
+Ther are many great resources to learn \LaTeX \ online. \\
 Regardless of which environment you choose for using \LaTeX \ you will work with two windows. 
 One window is used for typing commands and content, and another window for viewing the porcessed output document.
 \LaTeX \ can generates different types of output but the most used one is PDF (Portable Document Format) files. 
 This is mainly becuse PDF is readable on every platform. Mobile and otherwise.\\
-\subsection{A Commands In \LaTeX \ }
-\LaTeX \ typesetting is made by using command that provide a an abondance of ways to format the document. 
-Command are words that encapsulate certain behavior. Usually these words are perceded by a backslash '\' character. A command may take a parameter. 
+
+\subsection{Commands In \LaTeX \ }
+\LaTeX \ typesetting is made by using commands that provide an abondance of ways to format the document. 
+Commands are words that encapsulate certain behavior. Usually these words are perceded by a backslash 
+'\textbackslash'  character.\par
+A \LaTeX command may take a parameter. \\
 New commands can be defines for special needs if standard commands do not sufice.
 
 \subsection{Document Structure}
@@ -95,6 +103,7 @@ The most basic document in \LaTeX \ will look like this.
 \end{lstlisting}
 \newpage
 \section{Compiling \LaTeX \ code}
+
 \subsection{Compiling on a Linux machine}
 To compile on a Linux machine you need to install the necessary packages.
 On a Debian based distrobution.
@@ -108,6 +117,7 @@ sudo dnf install texlive-scheme-medium
 sudo dnf install texlive-scheme-full
 \end{lstlisting}
 \newpage
+
 \subsection{Known issues}
 \LaTeX \ requires double compilation for ceratin information to be properly embeded in the document.
 Usually this is first noticed when trying to create a talbe of contents command
@@ -117,26 +127,145 @@ Usually this is first noticed when trying to create a talbe of contents command
 \tableofcontents
 \chapter{Chapter 1}
 \newpage
+
 \section{Section 1}
 \end{document}
 \end{lstlisting}
-this could be confusing for newcomers to \LaTeX \ but now you know.
-\newline
-\subsection{\LaTeX \ files}
+This could be confusing for newcomers to \LaTeX \ but now you know.\\
+
+\section{Basic Text Formatting}
+
+\subsection{Bold, italics and underline} 
+The simplest form of text formatting and can be achieved in \LaTeX \ as follows:
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\textbf{wierd name for bold}
+\underline{the name sais it all}
+\textit{also good name}
+\emph{similar to textit but slighlty different}
+\end{lstlisting}
+
+\subsection{Paragraphs and newlines}
+To start a new paragaraph in \LaTeX \ you must leave a blank line in the text file.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+line one paragraph one.\\
+line two pragraph one.
+
+line one paragaraph two\\
+line two paragaraph two.
+\end{lstlisting}
+The effect can be achieved by the commnad par
+\begin{lstlisting}[language={[LaTeX]TEX}]
+line one paragraph one.\\
+line two pragraph one.\par
+line one paragaraph two\\
+line two paragaraph two.
+\end{lstlisting}
+
+\subsection{Lists}
+
+% ---- chpater Documents 
+\chapter{Documents}
+
+\section{Document classes}
+\todo{write a short intro about the Document type section}
+
+\subsection{Books}
+\todo{write about the Beamer documentclass}
+\todo{list book options}
+
+\subsection{Articles}
+\todo{write about the Beamer documentclass}
+
+\subsection{Beamers}
+\todo{write about the Beamer documentclass}
+
+\subsection{Slides}
+\todo{write about the slides documentclass}
+
+\subsection{Letter}
+\todo{write about the letter documentclass}
+
+\subsection{Report}
+\todo{write about the report documentclass}
+
+\subsection{Memoir}
+\todo{write about the report documentclass}
+
+\subsection{Minimal}
+\todo{write about the report documentclass}
+
+\subsection{Proc}
+\todo{write about the report documentclass}
+
+\section{Document Style}
+
+\subsection{Documentclass options}
+\newpage
+\subsection{Margins}
+\LaTeX \ uses a 1.85in margin by default. This is considered a large margin by most poeple.\\ 
+To change the margin we can use the geometry package.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\documentclass{article}
+\usepackage[margin=1.25in]{geometry}
+\begin{document}
+The margin now is better :)
+\end{document}
+\end{lstlisting}
 \newpage
 
 % ----- chapter Packages
 \chapter{Packages}
-\section{what is a package}
-\subsection{How to use a package}
-\subsection{Frequently used packages}
-\subsubsection{hyperref}
+
+\section{What Is a Package}
+Packages are additional \LaTeX \ libraries that add fucntionality to \LaTeX \\
+There are a lot of packages developed by indivisuals as well as orginizations that are 
+well maintained and add great features that make \LaTeX \ the great tool that it is.
+
+\section{How to use a package}
+
+\section{Frequently used packages}
+\todo{write short intro to Frequently used packages section}
+
+\subsection{hyperref}
 The hyperref pakcage is used for creating links in the document as well as links 
 for sites out of the document. Such as links to websites or other apps.
-\subsubsection{inputenc}
-\subsubsection{listings}
-\subsubsection{geometry}
-\subsubsection{todonotes}
+\begin{lstlisting}[language={[LaTeX]TEX}]
+{
+\hypersetup{linkcolor=black}
+\tableofcontents
+}
+\end{lstlisting}
+
+\subsection{inputenc}
+\todo{write about inputenc packge}
+
+\subsection{footmisc}
+There are many packages that provide the footnote functionality but the easiest one to use is
+the footmisc package.\\
+\textbf{Note}: if the perpage argument is not provided the footnotes will not be number per page.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\usepackage[perpage]{footmisc}
+\end{lstlisting}
+Adding a footnote is very easy.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+document content\footnote{footnote goes here}
+\end{lstlisting}
+
+\subsection{listings}
+The listings packages is used mainliy to include source code into a latex doucument.\\
+to use the pakcage include in the preamble area the following command.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\usepackage{listings}
+\end{lstlisting}
+package commands:
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\lstdefinesyle{Custom style name}
+\end{lstlisting}
+
+\subsection{geometry}
+\todo{write about geometry package}
+
+\subsection{todonotes}
 The todonotes is very usfull packages for adding todo notes in the document.\\
 The packages has many options the will not be listed here, they are availbale on line.\\
 The most basic way to use this package is as follows.\\
@@ -158,47 +287,27 @@ in the preamble area. This command will disable all the todonotes from the docum
 \usepackage[disable]{todonotes}
 \end{lstlisting}
 
-
-\subsubsection{tikz}
+\subsection{tikz}
+\todo{write about tikz package}
 \newpage
 
-
-% ---- chpater Documents 
-\chapter{Documents}
-\section{Document style}
-\subsection{Margins}
-\LaTeX \ uses a 1.85in margin by default. This is considered a large margin by most poeple.\\ 
-To change the margin we can use the geometry package.
-\begin{lstlisting}[language={[LaTeX]TEX}]
-\documentclass{article}
-\usepackage[margin=1.25in]{geometry}
-\begin{document}
-The margin now is better :)
-\end{document}
-\end{lstlisting}
-\section{Document types}
-\subsection{Books}
-\subsection{Articles}
-\subsection{Beamers}
-
-
 % ----- part 2 --------- %
-\part{How To \LaTeX}
+\part{How To \LaTeX - Advanced}
 \section{Introduction}
+
+% ---- chapter write your own package 
+\chapter{Write Your Own Package}
+
+\section{nameless section}
 
 % ---- chapter Computer Science Documentation
 \chapter{Computer Science Documentation}
-\section{Documentaion Automation}
-\begin{verbatim}
-\documentclass{book}
-\end{verbatim}
 
-\newpage
-How to insert a code block into a \LaTeX \ document?
-\newline One way to emed code in the \LaTeX  file is by using a verbatim 
-block. Verbatim blocks will embed the text as it 
-appeard in the block
-\newline For exmaple:
+\section{Documentaion Automation}
+How to insert a code block into a \LaTeX \ document?\\
+One way to embed code in the \LaTeX  file is by using a verbatim block. 
+Verbatim blocks will embed the text as it appeard in the block\\
+For exmaple:
 \begin{verbatim}
 \begin{verbatim}
 Text in the verbatim block not processed as latex code.
@@ -206,14 +315,15 @@ Text in the verbatim block not processed as latex code.
 \end{verbatim}
 Another way is to use lstlisting block
 The lstlisting is part of the listings package.
-For more documentation about the listings package goto this \href{https://ctan.math.illinois.edu/macros/latex/contrib/listings/listings.pdf}{link}
-\newline For example:
+For more documentation about the listings package goto this \href{https://ctan.math.illinois.edu/macros/latex/contrib/listings/listings.pdf}{link}\\
+For example:
 \begin{verbatim}
 \begin{lstlisting}[language=python]
 if __name__=="__main__":
     print("hello, world!")
 \end{lstlisting}
 \end{verbatim}
+
 \subsection{Using GNU make}
 The GNU make tool is widly used to create \LaTeX \ documents since it is very suited for such a task. 
 example code:
