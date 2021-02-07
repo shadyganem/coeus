@@ -8,8 +8,9 @@
 \usepackage[colorlinks]{hyperref}
 
 % geometry packsge for managing page margins
-\usepackage[margin=1.25in]{geometry}
+\usepackage[margin=1.0in]{geometry}
 
+\usepackage{todonotes}
 %tikz this package is used for creating drawings
 \usepackage{tikz}
 %using bookmark to for table of content
@@ -25,6 +26,7 @@
 \section*{Preface}
 \tableofcontents
 \newpage
+\listoftodos[TODO list]
 % ---------- part 1 -------------- %
 \part{Basics of \LaTeX}
 
@@ -32,9 +34,9 @@
 \chapter{A Tutorial Introduction}
 \section{Introdcution to \LaTeX \ }
 \subsection{What is \LaTeX \ }
+\todo{go through the document and replace newline commnad with a double backsladsh}
 First let's begin with the pronunciation. \LaTeX \ is pronounced Lay-tek or Lah-tek and not Lay-teks. 
-That is something that I got wrong when I first crossed paths with \LaTeX \ and I am making sure you won't.
-\newline 
+That is something that I got wrong when I first crossed paths with \LaTeX \ and I am making sure you won't.\\
 Now that we know how to pronounce the name corrently let's dive into what is \LaTeX. Well, \LaTeX \ is a software tool 
 for creating documents. The user writes code in plain text. The code is later processed to genereate a 
 a document with all the visual aspects taken care of. \LaTeX, unlike other word processing tools let's the user focus on the content and leave the visual asspects of the document to the software engine. 
@@ -134,6 +136,29 @@ for sites out of the document. Such as links to websites or other apps.
 \subsubsection{inputenc}
 \subsubsection{listings}
 \subsubsection{geometry}
+\subsubsection{todonotes}
+The todonotes is very usfull packages for adding todo notes in the document.\\
+The packages has many options the will not be listed here, they are availbale on line.\\
+The most basic way to use this package is as follows.\\
+To inlcude the package in the preable ares add.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\usepackage{todonotes}
+\end{lstlisting}
+In the document environment include the following. 
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\todo{TODO note example}
+\end{lstlisting}
+It is also possible to aggreagate the TODO notes into one list by useing the following commnad.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\listoftodos[The list header]
+\end{lstlisting}
+To create a document without the todonots. Adding the following to the options of the package 
+in the preamble area. This command will disable all the todonotes from the document.
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\usepackage[disable]{todonotes}
+\end{lstlisting}
+
+
 \subsubsection{tikz}
 \newpage
 

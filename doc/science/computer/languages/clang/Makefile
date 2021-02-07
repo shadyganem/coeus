@@ -16,4 +16,4 @@ $(PDF_TARGET): $(LATEXIN)
 	echo -e "\033[92m Target Made Successfully \033[0m"
 
 clean:
-	rm  -f *.pdf *.aux *.dvi *.log *.toc
+	rm  -f *.pdf *.aux *.dvi *.log *.toc *.out

@@ -87,8 +87,9 @@ static void latex_append_document_environment(FILE* latex_file, const char* titl
     fprintf(latex_file, "\\title{%s}\n", title_copy);
     free(title_copy);
     fprintf(latex_file, "\\usepackage[utf8]{inputenc}\n");
-    fprintf(latex_file, "\\usepackage[margin=2.0in]{geometry}\n");
-    fprintf(latex_file, "\\usepackage[colorlinks]{hyperref}\n\n");
+    fprintf(latex_file, "\\usepackage[margin=1.25in]{geometry}\n");
+    fprintf(latex_file, "\\usepackage[colorlinks]{hyperref}\n");
+    fprintf(latex_file, "\\usepackage{todonotes}\n\n");
     fprintf(latex_file, "\\usepackage{}\n\n");
     fprintf(latex_file, "\\author{Johnny English}\n\n");
     fprintf(latex_file, "\\begin{document}\n");
