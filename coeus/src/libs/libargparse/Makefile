@@ -1,13 +1,22 @@
 CC = gcc
 FLAGS = -Wall
-TARGET = libargparse.o
-SRC = libargparse.c libargparse.h
+SRC = $(wildcard *.c) 
+SRC := $(filter-out test.c, $(SRC))
+OBJ = $(SRC:.c=.o) 
 
-all: $(TARGET)
+all: $(OBJ)
 
-$(TARGET): $(SRC)
-	$(CC) $(FLAGS) -c $(SRC)
+%.o: %.c %.h 
+	$(CC) $(FLAGS) -c $< 
 
 clean:
-	rm -f *.o *.h.gch
+	rm -f *.o
 
+test: test.o $(OBJ)
+	$(CC) $(FLAGS) -o test test.o $(OBJ)
+
+test.o: test.c
+	$(CC) -c test.c
+
+clean_test:
+	rm -f test

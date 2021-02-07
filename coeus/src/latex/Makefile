@@ -1,20 +1,19 @@
-
 CC = gcc
 FLAGS = -Wall
-TARGET = latex.o
-SRC = latex.c
-DEP = latex.c latex.h
+SRC = $(wildcard *.c) 
+SRC := $(filter-out test.c, $(SRC))
+OBJ = $(SRC:.c=.o) 
 
-all: $(TARGET)
+all: $(OBJ)
 
-$(TARGET): $(DEP)
-	$(CC) $(FLAGS) -c $(SRC)
+%.o: %.c %.h 
+	$(CC) $(FLAGS) -c $< 
 
 clean:
 	rm -f *.o
 
-test: test.o $(TARGET)
-	$(CC) $(FLAGS) -o test test.o $(TARGET)
+test: test.o $(OBJ)
+	$(CC) $(FLAGS) -o test test.o $(OBJ)
 
 test.o: test.c
 	$(CC) -c test.c
