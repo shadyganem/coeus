@@ -93,6 +93,7 @@ static void latex_append_document_environment(FILE* latex_file, const char* titl
     fprintf(latex_file, "\\author{Johnny English}\n\n");
     fprintf(latex_file, "\\begin{document}\n");
     fprintf(latex_file, "\\maketitle\n");
+    fprintf(latex_file, "\\tableofcontents\n");
     fprintf(latex_file, "%%Content goes here\n");
     fprintf(latex_file, "\\end{document}\n");
 }
