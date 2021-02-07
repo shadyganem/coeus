@@ -27,4 +27,16 @@ struct context
 
 int is_flag_on(int flagc, struct flag * flagv, const char * flag_str);
 
+//TODO define a new library for parsing argument
+//TODO treat argument as a token stream
+//TODO define statemachine to determain grammer
+//TODO have fun
+
+struct argparser
+{
+    char* argparser_name;
+};
+
+struct argparser* argparser_init(int argc, char **argv);
+
 #endif

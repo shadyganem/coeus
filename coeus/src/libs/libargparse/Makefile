@@ -19,4 +19,5 @@ test.o: test.c
 	$(CC) -c test.c
 
 clean_test:
+	rm -f *.o
 	rm -f test
