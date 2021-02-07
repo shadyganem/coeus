@@ -5,7 +5,7 @@
 #include "defines.h"
 #include <unistd.h>
 #include <limits.h>
-#include "latex/latex.h"
+#include "libs/liblatex/liblatex.h"
 #include "libs/libargparse/libargparse.h"
 
 
@@ -31,7 +31,7 @@ int latex_new_callback(int flagc, struct flag* flagv)
         {
             if (strcmp(flagv[i].f_str, "-d") == 0)
             {
-                doc = latex_string_to_document_type(flagv[i].f_arg);
+                doc = liblatex_string_to_document_type(flagv[i].f_arg);
                 if (doc == latex_undefined)
                 {
                     printf("undefined LaTeX Document\n");
@@ -70,8 +70,7 @@ int latex_new_callback(int flagc, struct flag* flagv)
 
     printf("Enter Document title: ");
     scanf("%s", title);
-    int status = latex_generate_template(title, doc);
-    if (status != 0)
+    if (liblatex_generate_template(title, doc) != 0)
     {
         return 1;
     }

@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
 
 enum STATUS
 {
@@ -28,7 +29,7 @@ static struct
 static struct
 {
     LaTeXDocType document;
-    const char * latex_doc_str;
+    const char * liblatex_doc_str;
 } document_type_handler[] = { {latex_article, "article" },
                               {latex_report,  "report"  },
                               {latex_book,    "book"    },
@@ -37,11 +38,11 @@ static struct
                               {latex_beamer,  "beamer"  } };
 
 /*static fucntions declarations*/
-static void latex_append_document_environment(FILE* latex_file, const char* title);
-static char* latex_malloc_append_path(const char* str1, const char* str2);
-static void latex_str_replace(char* str, char ch1, char ch2);
+static void liblatex_append_document_environment(FILE* latex_file, const char* title);
+static char* liblatex_malloc_append_path(const char* str1, const char* str2);
+static void liblatex_str_replace(char* str, char ch1, char ch2);
 
-static char* latex_malloc_append_path(const char* str1, const char* str2)
+static char* liblatex_malloc_append_path(const char* str1, const char* str2)
 {
     int str1_len = 0;
     int str2_len = 0;
@@ -66,7 +67,7 @@ static char* latex_malloc_append_path(const char* str1, const char* str2)
     return new_str;
 }
 
-static void latex_str_replace(char* str,char ch1, char ch2)
+static void liblatex_str_replace(char* str,char ch1, char ch2)
 {
     int str_len = 0;
     str_len = strlen(str);
@@ -79,11 +80,11 @@ static void latex_str_replace(char* str,char ch1, char ch2)
     }
 }
 
-static void latex_append_document_environment(FILE* latex_file, const char* title)
+static void liblatex_append_document_environment(FILE* latex_file, const char* title)
 {
     int title_len = strlen(title);
     char * title_copy = (char *) malloc(title_len * sizeof (char)); 
-    latex_str_replace(strcpy(title_copy, title), '_', ' '); 
+    liblatex_str_replace(strcpy(title_copy, title), '_', ' '); 
     fprintf(latex_file, "\\title{%s}\n", title_copy);
     free(title_copy);
     fprintf(latex_file, "\\usepackage[utf8]{inputenc}\n");
@@ -99,25 +100,68 @@ static void latex_append_document_environment(FILE* latex_file, const char* titl
     fprintf(latex_file, "\\end{document}\n");
 }
 
-extern unsigned int latex_generate_template(const char* project_title, LaTeXDocType document)
+static int liblatex_check_errno(int errsv)
+{
+    switch (errsv)
+    {
+        case 0:
+            return 0;
+        case EACCES: 
+            printf("ERROR: Search permission is denied on a component of the path prefix, or write permission is denied on the parent directory of the directory to be created\n");
+            return 1;
+        case EEXIST:
+            printf("ERROR: The named file exists\n");
+            return 1;
+        case ELOOP:
+           printf("ERROR: A loop exists in symbolic links encountered during resolution of the path argument\n");
+           return 1;
+        case EMLINK:
+           printf("ERROR: The link count of the parent directory would exceed {LINK_MAX}\n");
+           return 1;
+        case ENAMETOOLONG:
+           printf("ERROR: The length of the path argument exceeds {PATH_MAX} or a pathname component is longer than {NAME_MAX}\n");
+           return 1;
+        case ENOENT:
+           printf("ERROR: A component of the path prefix specified by path does not name an existing directory or path is an empty string\n");
+           return 1;
+        case ENOSPC:
+           printf("ERROR: The file system does not contain enough space to hold the contents of the new directory or to extend the parent directory of the new directory\n");
+           return 1;
+        case ENOTDIR:
+           printf("ERROR: A component of the path prefix is not a directory\n");
+           return 1;
+        case EROFS:
+           printf("ERROR: The parent directory resides on a read-only file system\n");
+           return 1;
+        default:
+           printf("ERROR: undefined error errsv = %d\n", errsv);
+           return 1;
+    }
+    return 0;
+}
+
+extern unsigned int liblatex_generate_template(const char* project_title, LaTeXDocType document)
 {
     enum STATUS status = STATUS_OK;
     FILE* make_file;
     FILE* latex_file;
     char* filename;
-    int check;
-
-    check = mkdir(project_title, 0777);
-    if (check == 0)
+    
+    if (mkdir(project_title, 0777) == -1)
     {
-        filename = latex_malloc_append_path(project_title, "main.tex");
+        liblatex_check_errno(errno);
+        status = STATUS_BAD_FOLDER;
+    }
+    else
+    {
+        filename = liblatex_malloc_append_path(project_title, "main.tex");
         if (filename != NULL)
         {
             latex_file = fopen(filename, "w");
             if (latex_file != NULL)
             {
-                fprintf(latex_file, "\\documentclass{%s}\n\n", latex_document_type_to_string(document));
-                latex_append_document_environment(latex_file, project_title);
+                fprintf(latex_file, "\\documentclass{%s}\n\n", liblatex_document_type_to_string(document));
+                liblatex_append_document_environment(latex_file, project_title);
                 fclose(latex_file);
             }
             else
@@ -131,7 +175,7 @@ extern unsigned int latex_generate_template(const char* project_title, LaTeXDocT
             status = STATUS_BAD_MEM_ALLOC;
         }
         //Makefile block
-        filename = latex_malloc_append_path(project_title, "Makefile");
+        filename = liblatex_malloc_append_path(project_title, "Makefile");
         if (filename != NULL)
         {
             make_file = fopen(filename, "w");
@@ -161,14 +205,10 @@ extern unsigned int latex_generate_template(const char* project_title, LaTeXDocT
             free(filename);
         }
     }
-    else
-    {
-        status = STATUS_BAD_FOLDER;
-    }
 	return status;
 }
 
-extern const char* latex_document_type_to_string(LaTeXDocType doc_type)
+extern const char* liblatex_document_type_to_string(LaTeXDocType doc_type)
 {
     static const char* wrong_type_str = "document type not found ";
     int document_type_handler_num_of_el =  sizeof(document_type_handler)/sizeof(document_type_handler[0]);
@@ -176,18 +216,18 @@ extern const char* latex_document_type_to_string(LaTeXDocType doc_type)
     {
         if (document_type_handler[i].document == doc_type)
         {
-            return document_type_handler[i].latex_doc_str;
+            return document_type_handler[i].liblatex_doc_str;
         }
     }
     return wrong_type_str;
 }
 
-extern LaTeXDocType latex_string_to_document_type(const char* doc_type_str)
+extern LaTeXDocType liblatex_string_to_document_type(const char* doc_type_str)
 {
     int document_type_handler_num_of_el =  sizeof(document_type_handler)/sizeof(document_type_handler[0]);
     for (int i = 0; i < document_type_handler_num_of_el; i++)
     {
-        if (strcmp(document_type_handler[i].latex_doc_str, doc_type_str) == 0)
+        if (strcmp(document_type_handler[i].liblatex_doc_str, doc_type_str) == 0)
         {
             return document_type_handler[i].document;
         }
@@ -195,7 +235,7 @@ extern LaTeXDocType latex_string_to_document_type(const char* doc_type_str)
     return latex_undefined;
 }
 
-extern const char* latex_status_to_string(int status)
+extern const char* liblatex_status_to_string(int status)
 {
     static const char* status_not_defined_str = "STATUS NOT DEFINED";
     int status_handler_num_of_el =  sizeof(status_handler)/sizeof(status_handler[0]);

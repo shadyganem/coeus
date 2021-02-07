@@ -21,9 +21,9 @@ typedef enum
     latex_undefined
 } LaTeXDocType;
 
-extern unsigned int latex_generate_template(const char* project_title, LaTeXDocType doc_type);
-extern const char*  latex_document_type_to_string(LaTeXDocType);
-extern LaTeXDocType latex_string_to_document_type(const char* doc_type_srt);
-extern const char* latex_status_to_string(int status);
+extern unsigned int liblatex_generate_template(const char* project_title, LaTeXDocType doc_type);
+extern const char*  liblatex_document_type_to_string(LaTeXDocType);
+extern LaTeXDocType liblatex_string_to_document_type(const char* doc_type_srt);
+extern const char* liblatex_status_to_string(int status);
 
 #endif
