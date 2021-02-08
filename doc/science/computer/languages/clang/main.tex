@@ -43,4 +43,33 @@ Type in the terminal:
 \begin{lstlisting}[language=bash]
 gcc hello.c -o hello
 \end{lstlisting}
+
+
+\part{C Standart Library}
+
+\chapter{Linux Specific Libraries}
+\section{libs}
+\subsection{errno}
+This library defines the integer errno which holds the last error number.\\
+To access this intger inlcude the header file errno.h\\
+errno.h defines manny error values that can be examined to determine the error cause.\\
+
+useage example:
+\begin{lstlisting}[language=C]
+#include <errno.h>
+
+int main()
+{
+    if(mkdir("\home\username\newfolder") != 0)
+    {
+        if (errno == EEXIST)
+        {
+            printf("file or folder already exists\n");
+        }
+    }
+} 
+
+for more info see the man page for this nubmer.
+
+\end{lstlisting}
 \end{document}
