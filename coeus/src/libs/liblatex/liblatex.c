@@ -87,6 +87,8 @@ static void liblatex_append_document_environment(FILE* latex_file, const char* t
     liblatex_str_replace(strcpy(title_copy, title), '_', ' '); 
     fprintf(latex_file, "\\title{%s}\n", title_copy);
     free(title_copy);
+
+    fprintf(latex_file, "\\usepackage{listings}\n");
     fprintf(latex_file, "\\usepackage[utf8]{inputenc}\n");
     fprintf(latex_file, "\\usepackage[margin=1.25in]{geometry}\n");
     fprintf(latex_file, "\\usepackage[colorlinks]{hyperref}\n");
