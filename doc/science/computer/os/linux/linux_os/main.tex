@@ -1,0 +1,63 @@
+\documentclass{book}
+
+\title{The linux Operating System}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.25in]{geometry}
+\usepackage[colorlinks]{hyperref} \usepackage{todonotes} 
+\usepackage{}
+
+\author{Shady Ganem}
+
+\begin{document}
+\maketitle
+\tableofcontents
+%Content goes here
+
+\part{Linux Basics}
+
+\part{Kernelspace}
+
+\part{Userspace}
+
+\chapter{tools}
+
+\chapter{systemd}
+
+\chapter{servers}
+
+\section{web}
+\subsection{LAMP}
+The LAMP stands for Linux Apache MySQL PHP. It is a well know software stack for running a web server. \\
+Installing Apache on linux machine.\\
+On a debian based distro.
+\begin{lstlisting}[language=bash]
+sudo apt update
+sudo apt install apache2
+\end{lstlisting}
+
+\section{ssh}
+SSH servers enable logging into a machine via ssh (secure shell). ssh is a secure way to connect to a remote machine. It is wildy used for linux.\\
+
+\subsection{openssh}
+openssh is widly used as an ssh server, on linux and other OS as well.\\
+Not to be confused with ssh client which is the tool to ssh server.\\
+\begin{itemize}
+\item First update current packages. it is always important to install latest patches.
+\begin{lstlisting}[language=bash]
+sudo apt-get update
+\end{lstlisting}
+\item check if openssh is already installed.
+\begin{lstlisting}[language=bash]
+ssh localhost
+\end{lstlisting}
+if it promptes you for a password then you have it installed. Otherwise you need to install it.\\
+\item To install openssh
+\begin{lstlisting}[language=bash]
+sudo apt-get install openssh-server
+\end{lstlisting}
+
+\end{itemize}
+
+
+\end{document}

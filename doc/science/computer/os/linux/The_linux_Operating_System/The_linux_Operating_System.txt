@@ -1,78 +1,0 @@
-The linux Operating System
-Johnny English
-February 12, 2021
-
-2
-
-Contents
-I
-
-Linux Basics
-
-5
-
-II
-
-Kernel Space
-
-7
-
-III
-
-User Space
-
-9
-
-1 Userspace software
-1.1 servers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-1.1.1 LAMP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
-3
-
-11
-11
-11
-
-4
-
-CONTENTS
-
-Part I
-
-Linux Basics
-
-5
-
-Part II
-
-Kernel Space
-
-7
-
-Part III
-
-User Space
-
-9
-
-Chapter 1
-
-Userspace software
-1.1
-
-servers
-
-1.1.1
-
-LAMP
-
-The LAMP stands for Linux Apache MySQL PHP. It is a well know software stack for running a
-web server.
-Installing Apache on linux machine.
-On a debian based distro.
-sudo apt update
-sudo apt i n s t a l l apache2
-
-11
-
-

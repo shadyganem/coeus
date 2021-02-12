@@ -1,7 +1,7 @@
 OUTDIR = $(shell pwd)
 TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
 PDFTEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
-PDFOUT = The_linux_Operating_System
+PDFOUT = Linux_OS 
 PDF_TARGET = $(addsuffix .pdf, $(PDFOUT))
 LATEXIN = main.tex
 
