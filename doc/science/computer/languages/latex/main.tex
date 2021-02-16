@@ -14,6 +14,9 @@
 %using bookmark to for table of content
 %\usepackage{bookmark}
 
+%paracol for splitting the page into columns
+\usepackage{paracol}
+
 % ---------- front page info ---------- %
 \title{How To \LaTeX}
 \author{Shady Ganem}
@@ -39,7 +42,6 @@
 \section{Introdcution to \LaTeX \ }
 
 \subsection{What is \LaTeX \ }
-\todo{go through the document and replace newline commnad with a double backsladsh}
 First let's begin with the pronunciation. \LaTeX \ is pronounced Lay-tek or Lah-tek and not Lay-teks. 
 That is something that I got wrong when I first crossed paths with \LaTeX \ and I am making sure you won't.\\
 Now that we know how to pronounce the name corrently let's dive into what is \LaTeX. Well, \LaTeX \ is a software tool 
@@ -162,6 +164,23 @@ line two paragaraph two.
 \end{lstlisting}
 
 \subsection{Lists}
+For a none ordered list use itemize
+\begin{paracol}{2}
+\switchcolumn[0]
+\LaTeX \ code 
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\begin{itemize}
+\item item1
+\item item2
+\end{itemize}
+\end{lstlisting}
+\switchcolumn[1]
+Rinder
+\begin{itemize}
+\item item1
+\item item2
+\end{itemize}
+\end{paracol}
 
 % ---- chpater Documents 
 \chapter{Documents}
@@ -290,6 +309,22 @@ in the preamble area. This command will disable all the todonotes from the docum
 \subsection{tikz}
 \todo{write about tikz package}
 \newpage
+
+\subsection{paracol}
+The paracol package is useful for making colmuns inside the environment.
+In the preamble area add:
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\usepackage{paracol}
+\end{lstlisting}
+In The document environment
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\begin{paracol}{2}
+\switchcolumn[0]
+type to columnt 0
+\swtichcolumn[1]
+type to column 1
+\end{paracol}
+\end{lstlisting}
 
 % ----- part 2 --------- %
 \part{How To \LaTeX - Advanced}
