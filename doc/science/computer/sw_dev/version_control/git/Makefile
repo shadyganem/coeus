@@ -1,7 +1,7 @@
 OUTDIR = $(shell pwd)
 TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
 PDFTEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
-PDFOUT = Version_Control
+PDFOUT = git
 PDF_TARGET = $(addsuffix .pdf, $(PDFOUT))
 LATEXIN = main.tex
 
@@ -15,4 +15,4 @@ $(PDF_TARGET): $(LATEXIN)
 	echo -e "\033[92m Target Made Successfully \033[0m"
 
 clean:
-	rm  -f *.pdf *.aux *.dvi *.log *.toc
+	rm  -f *.pdf *.aux *.dvi *.log *.toc *.out
