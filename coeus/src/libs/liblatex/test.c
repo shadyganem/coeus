@@ -9,7 +9,6 @@
 int test_main()
 {
     char *filename = "latex_test";
-    char original_path[FILENAME_MAX];
     char path[FILENAME_MAX];
     LaTeXDocType doc_type = latex_book;
     const char* ptr_to_str = liblatex_document_type_to_string(latex_book);
@@ -21,20 +20,6 @@ int test_main()
     printf("%s \n", liblatex_document_type_to_string(latex_beamer));
     printf("%s \n", liblatex_document_type_to_string(99));
 
-    if (getcwd(path, FILENAME_MAX))
-    {
-        printf("%s\n", path);
-    }
-    chdir("/home/svshared/test_dir");
-    if (getcwd(path, FILENAME_MAX))
-    {
-        printf("%s\n", path);
-    }
-    chdir("-");
-    if (getcwd(path, FILENAME_MAX))
-    {
-        printf("%s\n", path);
-    }
 
     int status = liblatex_generate_template(filename, latex_beamer);
     if (status != 0)

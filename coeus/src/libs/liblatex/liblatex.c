@@ -39,6 +39,7 @@ static struct
 
 /*static fucntions declarations*/
 static void liblatex_append_document_environment(FILE* latex_file, const char* title);
+static void liblatex_append_beamer_environment(FILE* latex_file, const char* title);
 static char* liblatex_malloc_append_path(const char* str1, const char* str2);
 static void liblatex_str_replace(char* str, char ch1, char ch2);
 
@@ -93,11 +94,28 @@ static void liblatex_append_document_environment(FILE* latex_file, const char* t
     fprintf(latex_file, "\\usepackage[margin=1.25in]{geometry}\n");
     fprintf(latex_file, "\\usepackage[colorlinks]{hyperref}\n");
     fprintf(latex_file, "\\usepackage{todonotes}\n\n");
-    fprintf(latex_file, "\\usepackage{}\n\n");
     fprintf(latex_file, "\\author{Johnny English}\n\n");
     fprintf(latex_file, "\\begin{document}\n");
     fprintf(latex_file, "\\maketitle\n");
-    fprintf(latex_file, "\\tableofcontents\n");
+    fprintf(latex_file, "{\n\\hypersetup{linkcolor=black}\n");
+    fprintf(latex_file, "\\tableofcontents\n}\n");
+    fprintf(latex_file, "%%Content goes here\n");
+    fprintf(latex_file, "\\end{document}\n");
+}
+
+static void liblatex_append_beamer_environment(FILE* latex_file, const char* title)
+{
+    int title_len = strlen(title);
+    char * title_copy = (char *) malloc(title_len * sizeof (char)); 
+    liblatex_str_replace(strcpy(title_copy, title), '_', ' '); 
+    fprintf(latex_file, "\\title{%s}\n", title_copy);
+    free(title_copy);
+
+    fprintf(latex_file, "\\usepackage[utf8]{inputenc}\n");
+    fprintf(latex_file, "\\usepackage{hyperref}\n");
+    fprintf(latex_file, "\\author{Johnny English}\n\n");
+    fprintf(latex_file, "\\begin{document}\n");
+    fprintf(latex_file, "\\maketitle\n");
     fprintf(latex_file, "%%Content goes here\n");
     fprintf(latex_file, "\\end{document}\n");
 }
@@ -163,7 +181,18 @@ extern unsigned int liblatex_generate_template(const char* project_title, LaTeXD
             if (latex_file != NULL)
             {
                 fprintf(latex_file, "\\documentclass{%s}\n\n", liblatex_document_type_to_string(document));
-                liblatex_append_document_environment(latex_file, project_title);
+		switch (document)
+		{
+			case latex_book:
+				liblatex_append_document_environment(latex_file, project_title);
+				break;
+			case latex_beamer:
+				liblatex_append_beamer_environment(latex_file, project_title);
+				break;
+			default:
+				liblatex_append_document_environment(latex_file, project_title);
+				
+		}
                 fclose(latex_file);
             }
             else
@@ -196,7 +225,7 @@ extern unsigned int liblatex_generate_template(const char* project_title, LaTeXD
                 fprintf(make_file,"\t$(PDFTEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)\n");
                 fprintf(make_file,"\techo -e \"\\033[92m Target Made Successfully \\033[0m\"\n\n");
                 fprintf(make_file,"clean:\n");
-                fprintf(make_file,"\trm  -f *.pdf *.aux *.dvi *.log *.toc\n");
+                fprintf(make_file,"\trm  -f *.pdf *.aux *.dvi *.log *.toc *.out\n");
             
                 fclose(make_file);
             }
