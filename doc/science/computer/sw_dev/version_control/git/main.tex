@@ -55,6 +55,12 @@ There are many configurations that can be changed for git.
 \begin{lstlisting}[language=bash]
 $ git config 
 \end{lstlisting}
+To save the creditioals for a user to the repository configurations. 
+This can be done for the global scope but it is recommended to use for the local repo
+\begin{lstlisting}[language=bash]
+$ git config --local credential.helper store
+\end{lstlisting}
+The next time a push or pull request is performed git will ask for the credentials again and store them.
 
 
 
