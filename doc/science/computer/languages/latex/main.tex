@@ -14,6 +14,10 @@
 %using bookmark to for table of content
 %\usepackage{bookmark}
 
+%math equations and symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+
 %paracol for splitting the page into columns
 \usepackage{paracol}
 
@@ -181,6 +185,24 @@ Rinder
 \item item2
 \end{itemize}
 \end{paracol}
+For ordered lists use enumerate
+\begin{paracol}{2}
+\switchcolumn[0]
+\LaTeX \ code 
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\begin{enumerate}
+\item item1
+\item item2
+\end{enumerate}
+\end{lstlisting}
+\switchcolumn[1]
+Rinder
+\begin{enumerate}
+\item item1
+\item item2
+\end{enumerate}
+\end{paracol}
+
 
 % ---- chpater Documents 
 \chapter{Documents}
@@ -311,7 +333,7 @@ in the preamble area. This command will disable all the todonotes from the docum
 \newpage
 
 \subsection{paracol}
-The paracol package is useful for making colmuns inside the environment.
+The paracol package is useful for making columns inside the environment.
 In the preamble area add:
 \begin{lstlisting}[language={[LaTeX]TEX}]
 \usepackage{paracol}
@@ -325,6 +347,23 @@ type to columnt 0
 type to column 1
 \end{paracol}
 \end{lstlisting}
+
+\subsection{amsmath}
+The amsmath is the package used for writing and formating mathimatical expressions.\\
+\LaTeX is know for being powerful for creating mathimatical documentaion. This subject deserves a chapter
+of it's own.
+
+\subsection{amssymb}
+amssymb contains a vast range of mathimatical symbols to be used in equations.
+
+
+
+
+
+
+
+
+
 
 % ----- part 2 --------- %
 \part{How To \LaTeX - Advanced}

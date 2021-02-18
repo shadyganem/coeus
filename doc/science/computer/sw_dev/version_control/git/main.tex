@@ -6,6 +6,8 @@
 \usepackage[margin=1.25in]{geometry}
 \usepackage[colorlinks]{hyperref}
 \usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 \author{Johnny English}
 
@@ -21,8 +23,39 @@
 git is a very popular version control. it is very simple to use.
  
 \chapter{git commands}
+\section{list of all git commands}
+\section{status}
+\section{add}
+\section{commit}
+\section{checkout}
+\section{branch}
+\section{pull}
+\section{fetch}
+\section{remote}
 \section{config}
-config command helps configure general aspects of the git repository. 
+config command helps configure aspects of the git repository.\\
+git stores certain configuration to the repo in a config file.
+git can be configured on different levels.
+\begin{enumerate}
+\item worktree - for a folder in a repo
+\item local    - for the repo only
+\item global   - for the user
+\item system   - for all users
+\end{enumerate}
+These files have hierarchical order where the closest config rule will be applied. \\
+$$worktree > local >  global > system $$
+If however a configuration is not present in the closest config file or even if the config file 
+does not exist then git will default to the config file of the next level.
+for example 
+if the global alise of the combination co means "checkout" but the local aliase of co is "config" then git will 
+interpert co as config becase local configs overrule global ones.\par
+The git config command is used to used to change the config file without the need to type in the configurations manually 
+eventhough the final effect is the same in both approaches.\\
+There are many configurations that can be changed for git.
+\begin{lstlisting}[language=bash]
+$ git config 
+\end{lstlisting}
+
 
 
 
