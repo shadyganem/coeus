@@ -7,7 +7,7 @@
 \usepackage[colorlinks]{hyperref}
 \usepackage{todonotes}
 
-\author{Johnny English}
+\author{Shady Ganem}
 
 \begin{document}
 \maketitle
@@ -15,5 +15,36 @@
 \hypersetup{linkcolor=black}
 \tableofcontents
 }
-%Content goes here
+
+\part{LAMP}
+
+\chapter{Introduction}
+\section{What is LAMP}
+LAMP stands for Linux Apache MySQL and PHP. This is very famous web dev 
+stack. 
+
+\section{Installing LAMP}
+To install the LAMP stack you would aviously need a linux machine. 
+In this toturial we will use raspberry pi os. it is debian based then this 
+will apply to debian based linux distros.
+first update the package manager
+\begin{lstlisting}[language=bash]
+$ sudo apt update & sudo apt upgrade
+\end{lstlisting}
+Then install apache server 
+\begin{lstlisting}[language=bash]
+$ sudo apt install apache2 -y 
+\end{lstlisting}
+Appache will get installed on your system. This process might take a few minute.\\
+To make sure that the service is running. 
+\begin{lstlisting}[language=bash]
+$ sudo service apache2 status 
+\end{lstlisting}
+If the apache2 service is running this means your system will serve http requests on port 80. which is wonderful.\par
+Now we will move to install PHP
+in a very similar manner 
+\begin{lstlisting}[language=bash]
+$ sudo apt install php -y 
+\end{lstlisting}
+
 \end{document}
