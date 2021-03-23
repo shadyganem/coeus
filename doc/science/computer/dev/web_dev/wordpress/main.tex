@@ -24,7 +24,7 @@
 \hypersetup{linkcolor=black}
 \tableofcontents
 }
-\part{one}
+\part{}
 \chapter{secure the server}
 The subject of security is of major importance when it comes to web development.
 when deploying a new website we should assume that every transaction between the 
@@ -33,12 +33,39 @@ server and the client is compromised and must be secured.
 \section{Auto udpate}
 security issues can be caused due to out dated software. we will install a tool for 
 automating the process
-
 In ssh terminal
 \begin{lstlisting}[language=bash]
 $ sudo apt update
 $ sudo apt dist-upgrade
 \end{lstlisting}
+Now we will install the unattneded upgrade tool
+\begin{lstlisting}[language=bash]
+$ sudo dpkg-reconfigure --priority=low unattended-upgrades
+\end{lstlisting}
+Hit "YES"
+
+\section{Create a user}
+If you are running as root you should create a user in the sudo group.
+it is considered bad practice to operate as root in linux. 
+
+\begin{lstlisting}[language=bash]
+$ adduser \username
+\end{lstlisting}
+Add the user to the sudo group
+\begin{lstlisting}[language=bash]
+$ \username -aG sudo \username
+\end{lstlisting}
+
+\section{Authentication key pair}
+Logging in to the ssh server with a password is not a bad practice but it is less
+secure than logging in using and authentication keys.
+
+first lets create a directory that will hold they keys for our user.
+\begin{lstlisting}[language=bash]
+$ mkdir ~/.ssh && chmod 700 ~/.ssh
+\end{lstlisting}
+
+
 
 
 
