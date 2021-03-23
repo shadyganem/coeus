@@ -13,6 +13,10 @@ $(PDF_TARGET): $(LATEXIN)
 	$(PDFTEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)
 	$(PDFTEX) -output-directory=$(OUTDIR) -jobname=$(PDFOUT) $(LATEXIN)
 	echo -e "\033[92m Target Made Successfully \033[0m"
+	sudo cp $(PDF_TARGET) /var/www/html/pdf/.
+
+publish:
+	sudo cp $(PDF_TARGET) /var/www/html/pdf/.
 
 clean:
 	rm  -f *.pdf *.aux *.dvi *.log *.toc *.out

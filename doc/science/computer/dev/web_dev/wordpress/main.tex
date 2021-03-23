@@ -5,13 +5,41 @@
 \usepackage[margin=1.25in]{geometry}
 \usepackage[colorlinks]{hyperref}
 \usepackage{todonotes}
-
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue}
+}
 \usepackage{}
 
 \author{Johnny English}
 
+
+\def \bashversion {bash 1.2}
+
 \begin{document}
 \maketitle
+{
+\hypersetup{linkcolor=black}
 \tableofcontents
-%Content goes here
+}
+\part{one}
+\chapter{secure the server}
+The subject of security is of major importance when it comes to web development.
+when deploying a new website we should assume that every transaction between the 
+server and the client is compromised and must be secured. 
+
+\section{Auto udpate}
+security issues can be caused due to out dated software. we will install a tool for 
+automating the process
+
+In ssh terminal
+\begin{lstlisting}[language=bash]
+$ sudo apt update
+$ sudo apt dist-upgrade
+\end{lstlisting}
+
+
+
 \end{document}
