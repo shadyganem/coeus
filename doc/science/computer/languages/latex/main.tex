@@ -142,13 +142,23 @@ This could be confusing for newcomers to \LaTeX \ but now you know.\\
 \section{Basic Text Formatting}
 
 \subsection{Bold, italics and underline} 
-The simplest form of text formatting and can be achieved in \LaTeX \ as follows:
+The simplest form of text formatting can be achieved in \LaTeX \ as follows:
+\begin{paracol}{2}
+\switchcolumn[0]
+Code
 \begin{lstlisting}[language={[LaTeX]TEX}]
-\textbf{wierd name for bold}
-\underline{the name sais it all}
-\textit{also good name}
-\emph{similar to textit but slighlty different}
+\textbf{Bold}
+\underline{underline}
+\textit{italics}
+\emph{emph}
 \end{lstlisting}
+\switchcolumn[1]
+Render\\
+\textbf{Bold}\\
+\underline{underline}\\
+\textit{italics}\\
+\emph{emph}\\
+\end{paracol}
 
 \subsection{Paragraphs and newlines}
 To start a new paragaraph in \LaTeX \ you must leave a blank line in the text file.
@@ -179,7 +189,7 @@ For a none ordered list use itemize
 \end{itemize}
 \end{lstlisting}
 \switchcolumn[1]
-Rinder
+Render
 \begin{itemize}
 \item item1
 \item item2
@@ -203,6 +213,29 @@ Rinder
 \end{enumerate}
 \end{paracol}
 
+\newpage
+\subsection{Tables}
+Tables are common in almost all kinds of documents. \LaTeX provides a large set
+of tools to customize tables.
+The simplest example for a table would be as follows: \\
+Code
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\begin{center}
+\begin{tabular}{ c c c }
+ cell1 & cell2 & cell3 \\
+ cell4 & cell5 & cell6 \\
+ cell7 & cell8 & cell9
+\end{tabular}
+\end{center}
+\end{lstlisting}
+Render\\
+\begin{center}
+\begin{tabular}{ c c c }
+ cell1 & cell2 & cell3 \\
+ cell4 & cell5 & cell6 \\
+ cell7 & cell8 & cell9
+\end{tabular}
+\end{center}
 
 % ---- chpater Documents 
 \chapter{Documents}
