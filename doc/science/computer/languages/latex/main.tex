@@ -38,6 +38,11 @@
 \newpage
 \listoftodos[TODO list]
 % ---------- part 1 -------------- %
+% ---------- part 1 -------------- %
+% ---------- part 1 -------------- %
+% ---------- part 1 -------------- %
+% ---------- part 1 -------------- %
+% ---------- part 1 -------------- %
 \part{Basics of \LaTeX}
 
 % ----- chapter A Totorial Introduction 
@@ -218,13 +223,16 @@ Rinder
 Tables are common in almost all kinds of documents. \LaTeX provides a large set
 of tools to customize tables.
 The simplest example for a table would be as follows: \\
+In this example we will use a \textit{tabular}.\\
+
+% ---- table example 1 ------- %
 Code
 \begin{lstlisting}[language={[LaTeX]TEX}]
 \begin{center}
 \begin{tabular}{ c c c }
  cell1 & cell2 & cell3 \\
  cell4 & cell5 & cell6 \\
- cell7 & cell8 & cell9
+ cell7 & cell8 & cell9 \\
 \end{tabular}
 \end{center}
 \end{lstlisting}
@@ -233,10 +241,93 @@ Render\\
 \begin{tabular}{ c c c }
  cell1 & cell2 & cell3 \\
  cell4 & cell5 & cell6 \\
- cell7 & cell8 & cell9
+ cell7 & cell8 & cell9 \\
 \end{tabular}
 \end{center}
 
+% ---- table example 2 ------- %
+adding borders can be achieved as follows:
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\begin{center}
+\begin{tabular}{ |c|c|c| }
+ cell1 & cell2 & cell3 \\
+ \hline
+ cell4 & cell5 & cell6 \\
+ \hline
+ cell7 & cell8 & cell9 \\
+ \hline
+\end{tabular}
+\end{center}
+\end{lstlisting}
+Render\\
+\begin{center}
+\begin{tabular}{ |c|c|c| }
+ \hline
+ cell1 & cell2 & cell3 \\
+ \hline
+ cell4 & cell5 & cell6 \\
+ \hline
+ cell7 & cell8 & cell9 \\
+ \hline
+\end{tabular}
+\end{center}
+
+% ---- table example 2 ------- %
+Fixed length tables
+\todo{fixed lengeth table. Rendering failed. fix code}
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\begin{center}
+\begin{tabular}{ |m{5em}|m{1cm}|m{2cm}| }
+ cell1 & cell2 & cell3 \\
+ \hline
+ cell4 & cell5 & cell6 \\
+ \hline
+ cell7 & cell8 & cell9 \\
+ \hline
+\end{tabular}
+\end{center}
+\end{lstlisting}
+
+% ---- table example 3  ---- %
+Combining rows and columns.\\
+Code
+\begin{lstlisting}[language={[LaTeX]TEX}]
+\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{Country List} \\
+ \hline
+ Country Name     or Area Name& ISO ALPHA 2 Code &ISO ALPHA 3 Code&ISO numeric Code\\
+ \hline
+ Afghanistan   & AF    &AFG&   004\\
+ Aland Islands&   AX  & ALA   &248\\
+ Albania &AL & ALB&  008\\
+ Algeria    &DZ & DZA&  012\\
+ American Samoa&   AS  & ASM&016\\
+ Andorra& AD  & AND   &020\\
+ Angola& AO  & AGO&024\\
+ \hline
+\end{tabular}
+\end{lstlisting}
+Render\\
+\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{Country List} \\
+ \hline
+ Country Name     or Area Name& ISO ALPHA 2 Code &ISO ALPHA 3 Code&ISO numeric Code\\
+ \hline
+ Afghanistan   & AF    &AFG&   004\\
+ Aland Islands&   AX  & ALA   &248\\
+ Albania &AL & ALB&  008\\
+ Algeria    &DZ & DZA&  012\\
+ American Samoa&   AS  & ASM&016\\
+ Andorra& AD  & AND   &020\\
+ Angola& AO  & AGO&024\\
+ \hline
+\end{tabular}
+% ---- chpater Documents 
+% ---- chpater Documents 
+% ---- chpater Documents 
+% ---- chpater Documents 
 % ---- chpater Documents 
 \chapter{Documents}
 
@@ -413,6 +504,13 @@ amssymb contains a vast range of mathimatical symbols to be used in equations.
 
 
 
+% ----- part 2 --------- %
+% ----- part 2 --------- %
+% ----- part 2 --------- %
+% ----- part 2 --------- %
+% ----- part 2 --------- %
+% ----- part 2 --------- %
+% ----- part 2 --------- %
 % ----- part 2 --------- %
 \part{How To \LaTeX - Advanced}
 \section{Introduction}
