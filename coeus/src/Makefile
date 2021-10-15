@@ -26,6 +26,7 @@ $(DEP2): libs/libargparse/libargparse.h libs/libargparse/libargparse.c
 	make -C libs/libargparse/
 
 install: $(TARGET)
+	mkdir -p /home/$(USER)/bin
 	cp $(TARGET) /home/$(USER)/bin/$(basename $(TARGET))
 
 uninstall:
