@@ -20,6 +20,8 @@
 
 %paracol for splitting the page into columns
 \usepackage{paracol}
+%for images
+\usepackage{graphicx}
 
 % ---------- front page info ---------- %
 \title{How To \LaTeX}
@@ -324,6 +326,20 @@ Render\\
  Angola& AO  & AGO&024\\
  \hline
 \end{tabular}
+
+\section{Visual Content}
+\subsection{images}
+In order to use iamges in \LaTeX, we need to include a package called graphicx.
+
+\begin{lstlisting}[language={[LaTeX]TEX}]
+% to use graphicx we nned to include it
+\usepackage{graphicx}
+% set graphicx path
+\graphicspath( {images} )
+\end{lstlisting}
+
+\subsection{graphs}
+
 % ---- chpater Documents 
 % ---- chpater Documents 
 % ---- chpater Documents 
